@@ -28,10 +28,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        black: {
-          day: '#ffffff',  // 在day模式下的black颜色值
-          night: '#111827',  // 在night模式下的black颜色值
-        },
         day: {
           DEFAULT: BLOG.BACKGROUND_LIGHT || '#ffffff'
         },
