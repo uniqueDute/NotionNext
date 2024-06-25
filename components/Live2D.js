@@ -37,6 +37,7 @@ export default function Live2D() {
   if (!showPet) {
     return <></>
   }
+  
 
   return (
     <canvas
