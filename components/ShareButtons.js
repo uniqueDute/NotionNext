@@ -98,40 +98,40 @@ const ShareButtons = ({ post }) => {
             </FacebookShareButton>
           )
         }
-        if (singleService === 'messenger') {
-          return (
-            <FacebookMessengerShareButton
-              key={singleService}
-              url={shareUrl}
-              appId={siteConfig('FACEBOOK_APP_ID')}
-              className='mx-1'>
-              <FacebookMessengerIcon size={32} round />
-            </FacebookMessengerShareButton>
-          )
-        }
-        if (singleService === 'line') {
-          return (
-            <LineShareButton
-              key={singleService}
-              url={shareUrl}
-              className='mx-1'>
-              <LineIcon size={32} round />
-            </LineShareButton>
-          )
-        }
-        if (singleService === 'reddit') {
-          return (
-            <RedditShareButton
-              key={singleService}
-              url={shareUrl}
-              title={titleWithSiteInfo}
-              windowWidth={660}
-              windowHeight={460}
-              className='mx-1'>
-              <RedditIcon size={32} round />
-            </RedditShareButton>
-          )
-        }
+        // if (singleService === 'messenger') {
+        //   return (
+        //     <FacebookMessengerShareButton
+        //       key={singleService}
+        //       url={shareUrl}
+        //       appId={siteConfig('FACEBOOK_APP_ID')}
+        //       className='mx-1'>
+        //       <FacebookMessengerIcon size={32} round />
+        //     </FacebookMessengerShareButton>
+        //   )
+        // }
+        // if (singleService === 'line') {
+        //   return (
+        //     <LineShareButton
+        //       key={singleService}
+        //       url={shareUrl}
+        //       className='mx-1'>
+        //       <LineIcon size={32} round />
+        //     </LineShareButton>
+        //   )
+        // }
+        // if (singleService === 'reddit') {
+        //   return (
+        //     <RedditShareButton
+        //       key={singleService}
+        //       url={shareUrl}
+        //       title={titleWithSiteInfo}
+        //       windowWidth={660}
+        //       windowHeight={460}
+        //       className='mx-1'>
+        //       <RedditIcon size={32} round />
+        //     </RedditShareButton>
+        //   )
+        // }
         if (singleService === 'email') {
           return (
             <EmailShareButton
@@ -166,18 +166,18 @@ const ShareButtons = ({ post }) => {
             </TelegramShareButton>
           )
         }
-        if (singleService === 'whatsapp') {
-          return (
-            <WhatsappShareButton
-              key={singleService}
-              url={shareUrl}
-              title={titleWithSiteInfo}
-              separator=':: '
-              className='mx-1'>
-              <WhatsappIcon size={32} round />
-            </WhatsappShareButton>
-          )
-        }
+        // if (singleService === 'whatsapp') {
+        //   return (
+        //     <WhatsappShareButton
+        //       key={singleService}
+        //       url={shareUrl}
+        //       title={titleWithSiteInfo}
+        //       separator=':: '
+        //       className='mx-1'>
+        //       <WhatsappIcon size={32} round />
+        //     </WhatsappShareButton>
+        //   )
+        // }
         if (singleService === 'linkedin') {
           return (
             <LinkedinShareButton
@@ -188,17 +188,17 @@ const ShareButtons = ({ post }) => {
             </LinkedinShareButton>
           )
         }
-        if (singleService === 'pinterest') {
-          return (
-            <PinterestShareButton
-              key={singleService}
-              url={shareUrl}
-              media={image}
-              className='mx-1'>
-              <PinterestIcon size={32} round />
-            </PinterestShareButton>
-          )
-        }
+        // if (singleService === 'pinterest') {
+        //   return (
+        //     <PinterestShareButton
+        //       key={singleService}
+        //       url={shareUrl}
+        //       media={image}
+        //       className='mx-1'>
+        //       <PinterestIcon size={32} round />
+        //     </PinterestShareButton>
+        //   )
+        // }
         if (singleService === 'vkshare') {
           return (
             <VKShareButton
