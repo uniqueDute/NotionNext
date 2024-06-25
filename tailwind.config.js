@@ -33,12 +33,6 @@ module.exports = {
           night: '#111827',  // 在night模式下的black颜色值
         },
         day: {
-          DEFAULT: '#ffffff',  // day模式的默认背景颜色
-        },
-        night: {
-          DEFAULT: '#111827',  // night模式的默认背景颜色
-        },
-        day: {
           DEFAULT: BLOG.BACKGROUND_LIGHT || '#ffffff'
         },
         night: {
