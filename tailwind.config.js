@@ -28,6 +28,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        black: '#FFFFFF',  // 修改black的颜色值
         day: {
           DEFAULT: BLOG.BACKGROUND_LIGHT || '#ffffff'
         },
