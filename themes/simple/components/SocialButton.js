@@ -81,7 +81,7 @@ const SocialButton = () => {
             <i className='fab fa-bilibili transform hover:scale-125 duration-150' />
           </a>
         )}
-        {siteConfig('CONTACT_YOUTUBE') && (
+        {/* {siteConfig('CONTACT_YOUTUBE') && (
           <a
             target='_blank'
             rel='noreferrer'
@@ -89,7 +89,7 @@ const SocialButton = () => {
             href={siteConfig('CONTACT_YOUTUBE')}>
             <i className='fab fa-youtube transform hover:scale-125 duration-150' />
           </a>
-        )}
+        )} */}
       </div>
     </div>
   )
