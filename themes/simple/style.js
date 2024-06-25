@@ -9,7 +9,7 @@ const Style = () => {
     
   // 底色
   .dark body{
-      background-color: black;
+      background-color: #ffffff;
   }
   // 文本不可选取
     .forbid-copy {
