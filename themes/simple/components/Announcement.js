@@ -1,3 +1,4 @@
+/*
 import dynamic from 'next/dynamic'
 
 const NotionPage = dynamic(() => import('@/components/NotionPage'))
@@ -11,3 +12,5 @@ const Announcement = ({ post, className }) => {
     </div>)} </>
 }
 export default Announcement
+*/
+
