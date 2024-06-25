@@ -178,16 +178,16 @@ const ShareButtons = ({ post }) => {
         //     </WhatsappShareButton>
         //   )
         // }
-        if (singleService === 'linkedin') {
-          return (
-            <LinkedinShareButton
-              key={singleService}
-              url={shareUrl}
-              className='mx-1'>
-              <LinkedinIcon size={32} round />
-            </LinkedinShareButton>
-          )
-        }
+        // if (singleService === 'linkedin') {
+        //   return (
+        //     <LinkedinShareButton
+        //       key={singleService}
+        //       url={shareUrl}
+        //       className='mx-1'>
+        //       <LinkedinIcon size={32} round />
+        //     </LinkedinShareButton>
+        //   )
+        // }
         // if (singleService === 'pinterest') {
         //   return (
         //     <PinterestShareButton
