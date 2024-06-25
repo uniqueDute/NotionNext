@@ -71,15 +71,7 @@ const SocialButton = () => {
           <i className='fas fa-envelope transform hover:scale-125 duration-150 hover:text-green-600' />
         </a>
       )}
-      {JSON.parse(siteConfig('ENABLE_RSS')) && (
-        <a
-          target='_blank'
-          rel='noreferrer'
-          title={'RSS'}
-          href={'/rss/feed.xml'}>
-          <i className='fas fa-rss transform hover:scale-125 duration-150 hover:text-green-600' />
-        </a>
-      )}
+
     </div>
   )
 }
