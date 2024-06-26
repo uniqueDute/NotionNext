@@ -6,8 +6,6 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
-
-<script src="./aiDigest.js"></script>
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
