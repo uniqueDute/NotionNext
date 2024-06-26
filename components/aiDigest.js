@@ -44,7 +44,7 @@ function ChucklePostAI(AI_option) {
 			name: "AI摘要",
 			introduce: "我是文章辅助AI, 用于生成本文简介。",
 			version: "GPT",
-			...AI_option.interface
+			...AI_option.interfaces
 		}
 		insertCSS(); // 插入css
 		// 插入html结构
