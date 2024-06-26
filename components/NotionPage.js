@@ -7,6 +7,9 @@ import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
 
+// Import ChucklePostAI dynamically
+const ChucklePostAI = dynamic(() => import('./aiDigest'), { ssr: false })
+
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
@@ -18,8 +21,7 @@ const NotionPage = ({ post, className }) => {
   const POST_DISABLE_GALLERY_CLICK = siteConfig('POST_DISABLE_GALLERY_CLICK')
   const POST_DISABLE_DATABASE_CLICK = siteConfig('POST_DISABLE_DATABASE_CLICK')
 
-  const zoom =
-    isBrowser &&
+  const zoom = isBrowser &&
     mediumZoom({
       //   container: '.notion-viewport',
       background: 'rgba(0, 0, 0, 0.2)',
@@ -32,6 +34,33 @@ const NotionPage = ({ post, className }) => {
   useEffect(() => {
     // 检测当前的url并自动滚动到对应目标
     autoScrollToHash()
+
+    // Initialize ChucklePostAI when the #notion-article element is available
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.addedNodes) {
+          mutation.addedNodes.forEach(node => {
+            if (node.id === 'notion-article') {
+              if (ChucklePostAI && typeof ChucklePostAI === 'function') {
+                new ChucklePostAI({
+                  el: '#notion-article',
+                  summary_directly: true,
+                  rec_method: 'web',
+                  pjax: true,
+                })
+              }
+              observer.disconnect()
+            }
+          })
+        }
+      }
+    })
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+
   }, [])
 
   // 页面文章发生变化时会执行的勾子
@@ -50,7 +79,7 @@ const NotionPage = ({ post, className }) => {
     /**
      * 放大查看图片时替换成高清图像
      */
-    const observer = new MutationObserver((mutationsList, observer) => {
+    const observer = new MutationObserver((mutationsList) => {
       mutationsList.forEach(mutation => {
         if (
           mutation.type === 'attributes' &&
@@ -61,7 +90,7 @@ const NotionPage = ({ post, className }) => {
             setTimeout(() => {
               // 获取该元素的 src 属性
               const src = mutation?.target?.getAttribute('src')
-              //   替换为更高清的图像
+              // 替换为更高清的图像
               mutation?.target?.setAttribute(
                 'src',
                 compressImage(src, siteConfig('IMAGE_ZOOM_IN_WIDTH', 1200))
@@ -85,9 +114,7 @@ const NotionPage = ({ post, className }) => {
   }, [post])
 
   return (
-    <div
-      id='notion-article'
-      className={`mx-auto overflow-hidden ${className || ''}`}>
+    <div id="notion-article" className={`mx-auto overflow-hidden ${className || ''}`}>
       <NotionRenderer
         recordMap={post?.blockMap}
         mapPageUrl={mapPageUrl}
@@ -101,7 +128,6 @@ const NotionPage = ({ post, className }) => {
           Tweet
         }}
       />
-
       <AdEmbed />
       <PrismMac />
     </div>
@@ -126,9 +152,7 @@ const processDisableDatabaseUrl = () => {
 const processGalleryImg = zoom => {
   setTimeout(() => {
     if (isBrowser) {
-      const imgList = document?.querySelectorAll(
-        '.notion-collection-card-cover img'
-      )
+      const imgList = document?.querySelectorAll('.notion-collection-card-cover img')
       if (imgList && zoom) {
         for (let i = 0; i < imgList.length; i++) {
           zoom.attach(imgList[i])
@@ -212,12 +236,6 @@ const Equation = dynamic(
 )
 
 // 原版文档
-// const Pdf = dynamic(
-//   () => import('react-notion-x/build/third-party/pdf').then(m => m.Pdf),
-//   {
-//     ssr: false
-//   }
-// )
 const Pdf = dynamic(() => import('@/components/Pdf').then(m => m.Pdf), {
   ssr: false
 })
