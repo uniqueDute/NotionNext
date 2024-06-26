@@ -7,7 +7,7 @@ import { useImperativeHandle } from 'react'
  */
 const DarkModeButton = (props) => {
   const { cRef, className } = props
-  const { isDarModek, toggleDarkMode } = useGlobal()
+  const { isDarkMode, toggleDarkMode } = useGlobal()
 
   /**
    * 对外暴露方法
