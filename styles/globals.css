@@ -264,3 +264,12 @@ a.avatar-wrapper {
   writing-mode: vertical-rl; /* 竖向排列从右向左 */
   text-orientation: upright; /* 文字方向正常 */
 }
+
+
+.text-color-black{
+  color:black;
+}
+
+.text-color-white{
+  color:#ffffff;
+}
