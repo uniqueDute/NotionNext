@@ -87,7 +87,6 @@ function summarizeArticle(articleBox) {
     });
 
     const blogContent = contentArray.join('\n\n');
-    console.log(blogContent);
 
     const prompt = `请对以下文章内容进行100-200字的总结：\n\n${blogContent}`;
 

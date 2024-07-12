@@ -52,6 +52,8 @@ const NotionPage = ({ post, className }) => {
     // 定义处理 URL 变化的函数
     const handleUrlChange = () => {
         const currentBasePath = getBasePath();
+        console.log(currentBasePath);
+        console.log(previousBasePath);
 
         // 仅在基础路径部分变化时进行清理
         if (previousBasePath !== currentBasePath) {
