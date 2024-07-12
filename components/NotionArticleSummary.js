@@ -89,7 +89,7 @@ function summarizeArticle(articleBox) {
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
-    fetch('/api/fetchData', {
+    fetch('/api/FetchData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
