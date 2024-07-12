@@ -61,7 +61,8 @@ const Catalog = ({ post }) => {
         <div className='dark:text-white mb-2'>
             <i className='mr-1 fas fa-stream' />{locale.COMMON.TABLE_OF_CONTENTS}
         </div>
-        <div className='w-full py-3'>
+        <div style={{ paddingTop: '0px', paddingBottom: '0px' }}
+        className='w-full py-3'>
           <Progress />
         </div>
 
