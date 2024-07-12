@@ -6,7 +6,7 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
-import {clearSummaryBox,createSummaryBox } from '@/components/NotionArticleSummary';
+import {createSummaryBox } from '@/components/NotionArticleSummary';
 
 /**
  * 整个站点的核心组件
