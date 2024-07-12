@@ -98,6 +98,7 @@ function summarizeArticle(articleBox) {
                 parts:[{text:prompt}]
             }
         ],
+        stream:true
     };
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
