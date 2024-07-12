@@ -30,38 +30,49 @@ const NotionPage = ({ post, className }) => {
   const zoomRef = useRef(zoom ? zoom.clone() : null)
 
   useEffect(() => {
-    // 检测当前的url并自动滚动到对应目标
+    // 获取当前 URL 的路径部分
+    let previousPath = window.location.pathname;
+
+    // 自动滚动到当前 URL 哈希值对应的页面部分
     autoScrollToHash();
 
     const articleWrapper = document.getElementById('article-wrapper');
-    // 检查该元素是否存在
     if (articleWrapper) {
-      // 获取具有 id 为 "notion-article" 的元素
-      const articleBox = document.getElementById('notion-article');
-      // 创建摘要框
-      createSummaryBox(articleBox);
+        const articleBox = document.getElementById('notion-article');
+        createSummaryBox(articleBox); // 如果文章存在，创建摘要框
     }
 
-    // 定义 hashchange 事件处理函数
-    const handleHashChange = () => {
-      clearSummaryBox();
-      autoScrollToHash();
-      const articleWrapper = document.getElementById('article-wrapper');
-      if (articleWrapper) {
-        const articleBox = document.getElementById('notion-article');
-        createSummaryBox(articleBox);
-      }
+    // 定义处理 URL 变化的函数
+    const handleUrlChange = () => {
+        const currentPath = window.location.pathname;
+        
+        // 仅在路径部分变化时进行清理
+        if (previousPath !== currentPath) {
+            clearSummaryBox(); // 清除现有摘要框
+            autoScrollToHash(); // 滚动到新哈希值指定的部分
+            const articleWrapper = document.getElementById('article-wrapper');
+            if (articleWrapper) {
+                const articleBox = document.getElementById('notion-article');
+                createSummaryBox(articleBox); // 重新创建摘要框
+            }
+            previousPath = currentPath; // 更新路径
+        } else {
+            autoScrollToHash(); // 如果哈希值变化，自动滚动到新位置
+        }
     };
 
-    // 添加 hashchange 事件监听器
-    window.addEventListener('hashchange', handleHashChange);
+    // 添加 hashchange 和 popstate 事件监听器
+    window.addEventListener('hashchange', handleUrlChange);
+    window.addEventListener('popstate', handleUrlChange);
 
-    // 清理函数
+    // 返回清理函数
     return () => {
-      clearSummaryBox();
-      window.removeEventListener('hashchange', handleHashChange);
+        // 移除事件监听器
+        window.removeEventListener('hashchange', handleUrlChange);
+        window.removeEventListener('popstate', handleUrlChange);
     };
-  }, []);
+}, []); // 空依赖数组表示该 effect 在组件挂载时运行一次，并在组件卸载时进行清理
+
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
