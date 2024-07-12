@@ -151,6 +151,7 @@ const NotionPage = ({ post, className }) => {
  * 页面的数据库链接禁止跳转，只能查看
  */
 const processDisableDatabaseUrl = () => {
+  console.log("数据库链接禁止跳转，只能查看");
   if (isBrowser) {
     const links = document.querySelectorAll('.notion-table a')
     for (const e of links) {
