@@ -1,6 +1,9 @@
 const apiKey = 'b8087a010ded8c075c64e3bb1165b04f.zePKxgNaoTC8cNPK';
 const apiUrl = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
+let lastRequestSuccessful = false;
+let lastUrl = '';
+
 export function createSummaryBox(articleBox) {
     const wrapperDiv = articleBox;
     if (!wrapperDiv) {
@@ -101,6 +104,14 @@ function summarizeArticle(articleBox) {
         stream: true
     };
 
+    if (lastRequestSuccessful && lastUrl === apiUrl) {
+        console.log('Request already successful. Not sending another request.');
+        return;
+    }
+
+    lastUrl = apiUrl;
+    lastRequestSuccessful = false;
+
     fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -115,17 +126,19 @@ function summarizeArticle(articleBox) {
         }
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
-        let aiSpeechContent = articleBox.querySelector('.ai-speech-content');
+        const aiSpeechContent = articleBox.querySelector('.ai-speech-content');
+
         let partialData = '';
 
         function readStream() {
             reader.read().then(({ done, value }) => {
                 if (done) {
                     console.log('Stream complete');
+                    lastRequestSuccessful = true;
                     return;
                 }
                 partialData += decoder.decode(value, { stream: true });
-                let lines = partialData.split('\n');
+                const lines = partialData.split('\n');
 
                 for (let i = 0; i < lines.length - 1; i++) {
                     try {
