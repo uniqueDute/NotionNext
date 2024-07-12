@@ -96,26 +96,11 @@ function summarizeArticle(articleBox) {
         },
         body: JSON.stringify({ blogContent })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-    
-        // Read the response as text
-        return response.text(); 
-    })
-    .then(textData => {
-        // Parse the JSON data
-        const data = JSON.parse(textData);
-    
-        // Extract the summary text
-        const summaryText = data.candidates[0].content.parts[0].text;
-    
-        // Update the summary content 
-        summaryContentDiv.innerText = summaryText; 
-    })
-    .catch(error => {
+    .then(data => {
+        summaryContentDiv.innerText = data.summary;
+      })
+      .catch(error => {
         console.error('Error:', error);
         summaryContentDiv.innerText = '摘要生成失败，请稍后再试。';
-    });
+      });
 }

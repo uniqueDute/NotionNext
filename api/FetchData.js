@@ -6,9 +6,8 @@ export default async (req, res) => {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const API_KEY = 'AIzaSyBqvUA2o2rSk1hpJilfQmVrPBIsWj5etUk';
-  console.log(`API_KEY: ${API_KEY}`); // 调试日志
-  const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
+  const API_KEY = process.env.API_KEY;
+  const API_URL = process.env.API_URL;
 
   const { blogContent } = req.body;
   console.log(`Received blogContent: ${blogContent}`); // 调试日志
@@ -30,7 +29,7 @@ export default async (req, res) => {
   };
 
   try {
-    const response = await fetch(`${apiUrl}?key=${API_KEY}`, {
+    const response = await fetch(`${API_URL}?key=${API_KEY}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -52,3 +51,4 @@ export default async (req, res) => {
     res.status(500).json({ error: '摘要生成失败，请稍后再试。' });
   }
 };
+
