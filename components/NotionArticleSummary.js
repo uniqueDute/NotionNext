@@ -48,7 +48,6 @@ export function createSummaryBox(articleBox) {
     summaryBox.appendChild(aiTitleDiv);
     summaryBox.appendChild(aiSpeechBox);
     wrapperDiv.insertBefore(summaryBox, wrapperDiv.firstChild);
-   //summarizeArticle(articleBox);
 }
 
 
