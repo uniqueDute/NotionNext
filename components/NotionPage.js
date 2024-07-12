@@ -90,10 +90,10 @@ const NotionPage = ({ post, className }) => {
       processGalleryImg(zoomRef?.current)
     }
 
-    // // 页内数据库点击禁止跳转，只能查看
-    // if (POST_DISABLE_DATABASE_CLICK) {
-    //   processDisableDatabaseUrl()
-    // }
+    // 页内数据库点击禁止跳转，只能查看
+    if (POST_DISABLE_DATABASE_CLICK) {
+      processDisableDatabaseUrl()
+    }
 
     /**
      * 放大查看图片时替换成高清图像
@@ -159,13 +159,12 @@ const NotionPage = ({ post, className }) => {
  * 页面的数据库链接禁止跳转，只能查看
  */
 const processDisableDatabaseUrl = () => {
-  console.log("数据库链接禁止跳转，只能查看");
-  if (isBrowser) {
-    const links = document.querySelectorAll('.notion-table a')
-    for (const e of links) {
-      e.removeAttribute('href')
-    }
-  }
+  // if (isBrowser) {
+  //   const links = document.querySelectorAll('.notion-table a')
+  //   for (const e of links) {
+  //     e.removeAttribute('href')
+  //   }
+  // }
 }
 
 /**
