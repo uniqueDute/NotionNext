@@ -97,6 +97,7 @@ function summarizeArticle(articleBox) {
         body: JSON.stringify({ blogContent })
     })
     .then(data => {
+        console.log(data);
         summaryContentDiv.innerText = data.summary;
       })
       .catch(error => {
