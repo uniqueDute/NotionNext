@@ -6,7 +6,7 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
-// import { handleUrlChange } from '@/components/NotionArticleSummary';
+import { handleUrlChange } from '@/components/NotionArticleSummary';
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
@@ -34,9 +34,15 @@ const NotionPage = ({ post, className }) => {
     autoScrollToHash()
   }, [])
 
-  // useEffect(() => {
-  //   handleUrlChange();
-  // }, []);
+  useEffect(() => {
+    const checkElement = setInterval(() => {
+        const articleBox = document.getElementById('notion-article');
+        if (articleBox) {
+            clearInterval(checkElement);
+            handleUrlChange();
+        }
+    }, 1000); // Check every 1 second
+}, []);
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
@@ -90,7 +96,7 @@ const NotionPage = ({ post, className }) => {
 
   return (
     <div id='notion-article' className={`mx-auto overflow-hidden ${className || ''}`}>
-      <div></div>
+
       <NotionRenderer
         recordMap={post?.blockMap}
         mapPageUrl={mapPageUrl}
