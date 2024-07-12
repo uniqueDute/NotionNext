@@ -62,7 +62,7 @@ export function clearSummaryBox() {
     }
 }
 
- function summarizeArticle(articleBox) {
+ async function summarizeArticle(articleBox) {
     const contentArray = [];
 
     const blogTitleElement = articleBox.querySelector('h2.notion-h-title');
@@ -89,30 +89,31 @@ export function clearSummaryBox() {
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
-    fetch('/api/fetchData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ blogContent })
-      })
-      .then(response => {
-        console.log('Response status:', response.status); // 调试日志
-        return response.json().then(data => ({
-          status: response.status,
-          body: data
-        }));
-      })
-      .then(({ status, body }) => {
-        if (status !== 200) {
-          console.error('Network response was not ok', body);
-          throw new Error('Network response was not ok');
+    try {
+        const response = await fetch('/api/FetchData', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ blogContent })
+        });
+    
+        console.log('Response status:', response.status);
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        console.log('Response data:', body); // 调试日志
-        summaryContentDiv.innerText = body.summary;
-      })
-      .catch(error => {
+    
+        const data = await response.json();
+        console.log('Response data:', data);
+    
+        if (data.summary) {
+          summaryContentDiv.innerText = data.summary;
+        } else {
+          throw new Error('No summary found in response');
+        }
+      } catch (error) {
         console.error('Error:', error);
-        summaryContentDiv.innerText = '摘要生成失败，请稍后再试。';
-      });
+        summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
+      }
 }
