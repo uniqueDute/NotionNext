@@ -32,17 +32,8 @@ const NotionPage = ({ post, className }) => {
   useEffect(() => {
     // 检测当前的url并自动滚动到对应目标
     autoScrollToHash()
+    handleUrlChange();
   }, [])
-
-  useEffect(() => {
-    const checkElement = setInterval(() => {
-        const articleBox = document.getElementById('notion-article');
-        if (articleBox) {
-            clearInterval(checkElement);
-            handleUrlChange();
-        }
-    }, 1000); // Check every 1 second
-}, []);
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
