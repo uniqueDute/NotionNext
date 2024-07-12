@@ -55,7 +55,7 @@ export function createSummaryBox(articleBox) {
 }
 
 function summarizeArticle(articleBox) {
-    let contentArray = [];
+    const contentArray = [];
 
     const blogTitleElement = articleBox.querySelector('h2.notion-h-title');
     if (blogTitleElement) {
