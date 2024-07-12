@@ -1,4 +1,3 @@
-// notionArticleSummary.js
 
 export function createSummaryBox(articleBox) {
     const wrapperDiv = articleBox;
@@ -15,11 +14,11 @@ export function createSummaryBox(articleBox) {
     const summaryBox = document.createElement('div');
     summaryBox.classList.add('post-ai');
     summaryBox.id = 'post-ai';
-    summaryBox.style.backgroundColor = '#f9fafa'; // 设置背景色
-    summaryBox.style.margin = '8px 0 0 0'; // 设置外边距
+    summaryBox.style.backgroundColor = '#f9fafa'; 
+    summaryBox.style.margin = '8px 0 0 0'; 
 
     const aiTitleDiv = document.createElement('div');
-    aiTitleDiv.style.padding = '8px 8px 5px 14px'; // 设置内边距
+    aiTitleDiv.style.padding = '8px 8px 5px 14px'; 
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
     aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI摘要</span>';
@@ -33,16 +32,17 @@ export function createSummaryBox(articleBox) {
 
     const aiSpeechBox = document.createElement('div');
     aiSpeechBox.classList.add('ai-speech-box');
-    aiSpeechBox.style.padding = '0 14px 14px 14px'; // 设置内边距（上, 右, 下, 左）
-    aiSpeechBox.style.backgroundColor = '#f9fafa'; // 设置背景色
+     // 设置内边距（上, 右, 下, 左）
+    aiSpeechBox.style.padding = '0 14px 14px 14px';
+    aiSpeechBox.style.backgroundColor = '#f9fafa';
 
     const aiSpeechContent = document.createElement('div');
-    aiSpeechContent.style.padding = '5px'; // 设置内边距
+    aiSpeechContent.style.padding = '5px'; 
     aiSpeechContent.classList.add('ai-speech-content');
-    aiSpeechContent.style.backgroundColor = '#ffffff'; // 设置背景色
+    aiSpeechContent.style.backgroundColor = '#ffffff';
     aiSpeechContent.style.color = '#1e1e1e';
-    aiSpeechContent.style.textAlign = 'justify'; // 设置文本两端对齐
-    aiSpeechContent.style.lineHeight = '1.6'; // 设置行高
+    aiSpeechContent.style.textAlign = 'justify'; 
+    aiSpeechContent.style.lineHeight = '1.6'; 
     aiSpeechContent.innerText = '正在生成AI摘要，请稍候...';
     aiSpeechBox.appendChild(aiSpeechContent);
     summaryBox.appendChild(aiTitleDiv);
