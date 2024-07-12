@@ -62,7 +62,7 @@ export function clearSummaryBox() {
     }
 }
 
-async function summarizeArticle(articleBox) {
+ function summarizeArticle(articleBox) {
     const contentArray = [];
 
     const blogTitleElement = articleBox.querySelector('h2.notion-h-title');
@@ -89,16 +89,27 @@ async function summarizeArticle(articleBox) {
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
-    await fetch('/api/FetchData', {
+    fetch('/api/fetchData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ blogContent })
-    })
-    .then(data => {
-        console.log(data);
-        summaryContentDiv.innerText = data.summary;
+      })
+      .then(response => {
+        console.log('Response status:', response.status); // 调试日志
+        return response.json().then(data => ({
+          status: response.status,
+          body: data
+        }));
+      })
+      .then(({ status, body }) => {
+        if (status !== 200) {
+          console.error('Network response was not ok', body);
+          throw new Error('Network response was not ok');
+        }
+        console.log('Response data:', body); // 调试日志
+        summaryContentDiv.innerText = body.summary;
       })
       .catch(error => {
         console.error('Error:', error);

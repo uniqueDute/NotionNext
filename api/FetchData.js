@@ -37,18 +37,25 @@ export default async (req, res) => {
       body: JSON.stringify(requestData)
     });
 
+    console.log(`API request status: ${response.status}`); // 调试日志
     if (!response.ok) {
       console.error('Network response was not ok', response.statusText);
       throw new Error('Network response was not ok');
     }
 
     const data = await response.json();
-    const summaryText = data.candidates[0].content.parts[0].text;
+    console.log('API response data:', data); // 调试日志
 
-    res.status(200).json({ summary: summaryText });
+    if (data.candidates && data.candidates.length > 0) {
+      const summaryText = data.candidates[0].content.parts[0].text;
+      console.log('Summary text:', summaryText); // 调试日志
+      res.status(200).json({ summary: summaryText });
+    } else {
+      console.error('No candidates found in the response');
+      res.status(500).json({ error: 'No summary generated' });
+    }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: '摘要生成失败，请稍后再试。' });
   }
 };
-
