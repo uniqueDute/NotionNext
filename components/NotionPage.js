@@ -6,6 +6,7 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
+import { summarizeArticle, createSummaryBox, handleUrlChange } from '/notionArticleSummary';
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
@@ -32,6 +33,10 @@ const NotionPage = ({ post, className }) => {
     // 检测当前的url并自动滚动到对应目标
     autoScrollToHash()
   }, [])
+
+  useEffect(() => {
+    handleUrlChange();
+  }, []);
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
@@ -85,6 +90,7 @@ const NotionPage = ({ post, className }) => {
 
   return (
     <div id='notion-article' className={`mx-auto overflow-hidden ${className || ''}`}>
+
       <NotionRenderer
         recordMap={post?.blockMap}
         mapPageUrl={mapPageUrl}
