@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
 import {clearSummaryBox,createSummaryBox } from '@/components/NotionArticleSummary';
-import { useRouter } from 'next/router';
+
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
@@ -29,9 +29,6 @@ const NotionPage = ({ post, className }) => {
 
   const zoomRef = useRef(zoom ? zoom.clone() : null)
 
-  const router = useRouter() // 使用 useRouter 钩子
-  const { pathname } = router // 从 useRouter 中获取 pathname
-
   useEffect(() => {
     // 检测当前的url并自动滚动到对应目标
     autoScrollToHash();
@@ -48,7 +45,7 @@ const NotionPage = ({ post, className }) => {
     return () => {
       clearSummaryBox();
     };
-  }, [pathname]) // 将 pathname 作为依赖
+  }) // 将 pathname 作为依赖
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
