@@ -34,9 +34,9 @@ const NotionPage = ({ post, className }) => {
     autoScrollToHash()
   }, [])
 
-  useEffect(() => {
-    handleUrlChange();
-  }, []);
+  // useEffect(() => {
+  //   handleUrlChange();
+  // }, []);
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
@@ -90,7 +90,7 @@ const NotionPage = ({ post, className }) => {
 
   return (
     <div id='notion-article' className={`mx-auto overflow-hidden ${className || ''}`}>
-
+      <div></div>
       <NotionRenderer
         recordMap={post?.blockMap}
         mapPageUrl={mapPageUrl}
