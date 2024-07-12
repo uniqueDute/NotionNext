@@ -1,6 +1,5 @@
-
-const apiKey = 'b8087a010ded8c075c64e3bb1165b04f.zePKxgNaoTC8cNPK';
-const apiUrl = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+const apiKey = 'AIzaSyBqvUA2o2rSk1hpJilfQmVrPBIsWj5etUk'; // Replace with your actual API key
+const apiUrl = 'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent';
 
 export function createSummaryBox(articleBox) {
     const wrapperDiv = articleBox;
@@ -93,15 +92,19 @@ function summarizeArticle(articleBox) {
     const prompt = `请对以下文章内容进行100-200字的总结：\n\n${blogContent}`;
 
     const requestData = {
-        model: "glm-4",
+        model: 'gemini-pro',
+        temperature: 0.7, // Adjust for more creative or conservative summaries
+        max_tokens: 200, // Limit the summary length
         messages: [
             {
-                role: "user",
+                role: 'user',
                 content: prompt
             }
         ],
-        stream :true
+        stream: true // Enable stream response
     };
+
+    const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
     fetch(apiUrl, {
         method: 'POST',
@@ -111,25 +114,32 @@ function summarizeArticle(articleBox) {
         },
         body: JSON.stringify(requestData)
     })
-        .then(response => {
+    .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
-    })
-        .then(data => {
-        const summaryText = data.choices[0].message.content.trim();
+        const reader = response.body.getReader();
+        let summaryText = '';
 
-        const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
-        if (summaryContentDiv) {
+        const processChunk = async (chunk) => {
+            if (chunk.done) {
+                return; // Stop processing
+            }
+
+            const text = new TextDecoder().decode(chunk.value);
+            summaryText += text;
+
+            // Update the summary content dynamically as the response comes in
             summaryContentDiv.innerText = summaryText;
-        }
+
+            // Continue reading chunks
+            return reader.read().then(processChunk);
+        };
+
+        return processChunk(reader.read());
     })
-        .catch(error => {
+    .catch(error => {
         console.error('Error:', error);
+        summaryContentDiv.innerText = '摘要生成失败，请稍后再试。';
     });
 }
-
-
-
-
