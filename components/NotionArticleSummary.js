@@ -62,7 +62,7 @@ export function clearSummaryBox() {
     }
 }
 
-function summarizeArticle(articleBox) {
+async function summarizeArticle(articleBox) {
     const contentArray = [];
 
     const blogTitleElement = articleBox.querySelector('h2.notion-h-title');
@@ -89,7 +89,7 @@ function summarizeArticle(articleBox) {
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
-    fetch('/api/FetchData', {
+    await fetch('/api/FetchData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ function summarizeArticle(articleBox) {
     })
     .then(data => {
         console.log(data);
-        summaryContentDiv.innerText = data;
+        summaryContentDiv.innerText = data.summary;
       })
       .catch(error => {
         console.error('Error:', error);
