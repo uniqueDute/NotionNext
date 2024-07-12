@@ -1,5 +1,5 @@
 const apiKey = 'AIzaSyBqvUA2o2rSk1hpJilfQmVrPBIsWj5etUk'; // Replace with your actual API key
-const apiUrl = 'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent';
+const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 
 export function createSummaryBox(articleBox) {
     const wrapperDiv = articleBox;
@@ -106,10 +106,9 @@ function summarizeArticle(articleBox) {
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
-    fetch(apiUrl, {
+    fetch(`${apiUrl}?key=${apiKey}`, { // Corrected fetch call
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${apiKey}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestData)
