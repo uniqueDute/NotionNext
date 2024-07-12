@@ -61,7 +61,9 @@ const Catalog = ({ post }) => {
         <div className='dark:text-white mb-2'>
             <i className='mr-1 fas fa-stream' />{locale.COMMON.TABLE_OF_CONTENTS}
         </div>
-        <Progress />
+        <div className='w-full py-3'>
+          <Progress />
+        </div>
 
         <div className='overflow-y-auto overscroll-none max-h-36 lg:max-h-96 scroll-hidden' ref={tRef}>
             <nav className='h-full  text-black'>
