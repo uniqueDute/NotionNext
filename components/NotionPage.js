@@ -45,7 +45,7 @@ const NotionPage = ({ post, className }) => {
     return () => {
       clearSummaryBox();
     };
-  }) // 将 pathname 作为依赖
+  }) 
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
