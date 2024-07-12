@@ -16,9 +16,9 @@ export const BlogItem = props => {
     siteConfig('POST_LIST_PREVIEW', false, NOTION_CONFIG) && post.blockMap
 
   return (
-    <div
+    <div style={{ paddingBottom: '10px' }}
       key={post.id}
-      className='h-42 my-6 pb-12 border-b dark:border-gray-800'style="padding-bottom: 10px;">
+      className='h-42 my-6 pb-12 border-b dark:border-gray-800'>
       {/* 文章标题 */}
 
       <div className='flex'>
