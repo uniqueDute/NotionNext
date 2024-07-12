@@ -54,6 +54,16 @@ export function createSummaryBox(articleBox) {
     summarizeArticle(articleBox);
 }
 
+export function clearSummaryBox() {
+    const summaryBox = document.getElementById('post-ai');
+    if (summaryBox) {
+        console.log('Clearing summary box');
+        summaryBox.remove();
+    } else {
+        console.log('Summary box not found');
+    }
+}
+
 function summarizeArticle(articleBox) {
     const contentArray = [];
 

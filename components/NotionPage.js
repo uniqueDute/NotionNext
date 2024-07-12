@@ -6,7 +6,7 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
-import { createSummaryBox } from '@/components/NotionArticleSummary';
+import {clearSummaryBox,createSummaryBox } from '@/components/NotionArticleSummary';
 /**
  * 整个站点的核心组件
  * 将Notion数据渲染成网页
@@ -41,7 +41,11 @@ const NotionPage = ({ post, className }) => {
         // 创建摘要框
         createSummaryBox(articleBox);
     }
-  }, [])
+    // 清理函数用于 URL 变化时
+    return () => {
+      clearSummaryBox(); // 在组件卸载或 URL 变化时清除摘要框
+    };
+  } ,[window.location.pathname])
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
