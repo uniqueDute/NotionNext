@@ -159,12 +159,12 @@ const NotionPage = ({ post, className }) => {
  * 页面的数据库链接禁止跳转，只能查看
  */
 const processDisableDatabaseUrl = () => {
-  // if (isBrowser) {
-  //   const links = document.querySelectorAll('.notion-table a')
-  //   for (const e of links) {
-  //     e.removeAttribute('href')
-  //   }
-  // }
+  if (isBrowser) {
+    const links = document.querySelectorAll('.notion-table a')
+    for (const e of links) {
+      e.removeAttribute('href')
+    }
+  }
 }
 
 /**
