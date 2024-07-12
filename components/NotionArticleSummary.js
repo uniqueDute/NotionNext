@@ -1,5 +1,5 @@
 
-const apiKey = '73826634aaf7ed8c0edb17e164e87c03.cqCxX2pY0gs06h8s';
+const apiKey = 'b8087a010ded8c075c64e3bb1165b04f.zePKxgNaoTC8cNPK';
 const apiUrl = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
 export function createSummaryBox(articleBox) {
@@ -100,7 +100,7 @@ function summarizeArticle(articleBox) {
                 content: prompt
             }
         ],
-        stream : true
+        stream :true
     };
 
     fetch(apiUrl, {
