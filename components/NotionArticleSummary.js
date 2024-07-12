@@ -7,15 +7,9 @@ export function createSummaryBox(articleBox) {
         console.error('Article wrapper not found');
         return;
     }
-    
     const oldSummaryBox = wrapperDiv.querySelector('.post-ai');
     if (oldSummaryBox) {
-        const aiSpeechContent = oldSummaryBox.querySelector('.ai-speech-content');
-        if (aiSpeechContent && aiSpeechContent.innerText.length > 50) {
-            console.log('AI summary already exists and is sufficiently long.');
-            return;
-        }
-        console.log('Removing old AI summary box.');
+        console.log('Article');
         wrapperDiv.removeChild(oldSummaryBox);
     }
 
@@ -30,14 +24,17 @@ export function createSummaryBox(articleBox) {
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
     aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI摘要</span>';
+    // 设置 div 的样式以使图标和文本并排显示
     aiTitleDiv.style.display = 'flex';
     aiTitleDiv.style.alignItems = 'center';
 
+    // 获取图标元素并设置右边距
     const icon = aiTitleDiv.querySelector('img');
     icon.style.marginRight = '8px';
 
     const aiSpeechBox = document.createElement('div');
     aiSpeechBox.classList.add('ai-speech-box');
+     // 设置内边距（上, 右, 下, 左）
     aiSpeechBox.style.padding = '0 14px 14px 14px';
     aiSpeechBox.style.backgroundColor = '#f9fafa';
 
@@ -53,10 +50,8 @@ export function createSummaryBox(articleBox) {
     summaryBox.appendChild(aiTitleDiv);
     summaryBox.appendChild(aiSpeechBox);
     wrapperDiv.insertBefore(summaryBox, wrapperDiv.firstChild);
-
     summarizeArticle(articleBox);
 }
-
 
 export function clearSummaryBox() {
     const summaryBox = document.getElementById('post-ai');
