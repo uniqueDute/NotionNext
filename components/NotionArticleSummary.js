@@ -1,4 +1,7 @@
 
+const apiKey = 'b8087a010ded8c075c64e3bb1165b04f.zePKxgNaoTC8cNPK';
+const apiUrl = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+
 export function createSummaryBox(articleBox) {
     const wrapperDiv = articleBox;
     if (!wrapperDiv) {
@@ -48,6 +51,72 @@ export function createSummaryBox(articleBox) {
     summaryBox.appendChild(aiTitleDiv);
     summaryBox.appendChild(aiSpeechBox);
     wrapperDiv.insertBefore(summaryBox, wrapperDiv.firstChild);
+    summarizeArticle(articleBox);
+}
+
+function summarizeArticle(articleBox) {
+    let contentArray = [];
+
+    const blogTitleElement = articleBox.querySelector('h2.notion-h-title');
+    if (blogTitleElement) {
+        contentArray.push(blogTitleElement.innerText);
+    }
+
+    const notionCalloutElement = articleBox.querySelector('.notion-callout-text');
+    if (notionCalloutElement) {
+        contentArray.push(notionCalloutElement.innerText);
+    }
+
+    const contentElements = articleBox.querySelectorAll('.notion-text, ol.notion-list-numbered');
+    contentElements.forEach(element => {
+        if (element.classList.contains('notion-text')) {
+            contentArray.push(element.innerText);
+        } else if (element.tagName.toLowerCase() === 'ol') {
+            const listItems = [...element.children].map(li => li.innerText).join('\n');
+            contentArray.push(listItems);
+        }
+    });
+
+    const blogContent = contentArray.join('\n\n');
+    console.log(blogContent);
+
+    const prompt = `请对以下文章内容进行100-200字的总结：\n\n${blogContent}`;
+
+    const requestData = {
+        model: "glm-4",
+        messages: [
+            {
+                role: "user",
+                content: prompt
+            }
+        ]
+    };
+
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+        .then(data => {
+        const summaryText = data.choices[0].message.content.trim();
+
+        const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
+        if (summaryContentDiv) {
+            summaryContentDiv.innerText = summaryText;
+        }
+    })
+        .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 
