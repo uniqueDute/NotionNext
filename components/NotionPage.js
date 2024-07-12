@@ -30,8 +30,15 @@ const NotionPage = ({ post, className }) => {
   const zoomRef = useRef(zoom ? zoom.clone() : null)
 
   useEffect(() => {
-    // 获取当前 URL 的路径部分
-    let previousPath = window.location.pathname;
+    // 获取当前 URL 的基础路径部分
+    const getBasePath = () => {
+        const pathParts = window.location.pathname.split('/');
+        // 返回路径的前两部分，例如 "article/example-4"
+        return pathParts.slice(1, 3).join('/');
+    };
+
+    // 存储初始的基础路径部分
+    let previousBasePath = getBasePath();
 
     // 自动滚动到当前 URL 哈希值对应的页面部分
     autoScrollToHash();
@@ -44,21 +51,21 @@ const NotionPage = ({ post, className }) => {
 
     // 定义处理 URL 变化的函数
     const handleUrlChange = () => {
-        const currentPath = window.location.pathname;
-        
-        // 仅在路径部分变化时进行清理
-        if (previousPath !== currentPath) {
+        const currentBasePath = getBasePath();
+
+        // 仅在基础路径部分变化时进行清理
+        if (previousBasePath !== currentBasePath) {
             clearSummaryBox(); // 清除现有摘要框
-            autoScrollToHash(); // 滚动到新哈希值指定的部分
             const articleWrapper = document.getElementById('article-wrapper');
             if (articleWrapper) {
                 const articleBox = document.getElementById('notion-article');
                 createSummaryBox(articleBox); // 重新创建摘要框
             }
-            previousPath = currentPath; // 更新路径
-        } else {
-            autoScrollToHash(); // 如果哈希值变化，自动滚动到新位置
+            previousBasePath = currentBasePath; // 更新基础路径
         }
+
+        // 无论路径是否变化，都要执行滚动操作
+        autoScrollToHash(); // 滚动到新哈希值指定的部分
     };
 
     // 添加 hashchange 和 popstate 事件监听器
@@ -72,6 +79,7 @@ const NotionPage = ({ post, className }) => {
         window.removeEventListener('popstate', handleUrlChange);
     };
 }, []); // 空依赖数组表示该 effect 在组件挂载时运行一次，并在组件卸载时进行清理
+
 
 
   // 页面文章发生变化时会执行的勾子
