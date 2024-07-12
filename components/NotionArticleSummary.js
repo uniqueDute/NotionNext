@@ -93,15 +93,11 @@ function summarizeArticle(articleBox) {
 
     const requestData = {
         model: 'gemini-pro',
-        temperature: 0.7, // Adjust for more creative or conservative summaries
-        max_tokens: 200, // Limit the summary length
-        messages: [
+        contents: [
             {
-                role: 'user',
-                content: prompt
+                parts:[{text:prompt}]
             }
         ],
-        stream: true // Enable stream response
     };
 
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
