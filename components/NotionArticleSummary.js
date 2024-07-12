@@ -113,25 +113,19 @@ function summarizeArticle(articleBox) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        const reader = response.body.getReader();
-        let summaryText = '';
-
-        const processChunk = async (chunk) => {
-            if (chunk.done) {
-                return; // Stop processing
-            }
-
-            const text = new TextDecoder().decode(chunk.value);
-            summaryText += text;
-
-            // Update the summary content dynamically as the response comes in
-            summaryContentDiv.innerText = summaryText;
-
-            // Continue reading chunks
-            return reader.read().then(processChunk);
-        };
-
-        return processChunk(reader.read());
+    
+        // Read the response as text
+        return response.text(); 
+    })
+    .then(textData => {
+        // Parse the JSON data
+        const data = JSON.parse(textData);
+    
+        // Extract the summary text
+        const summaryText = data.candidates[0].content.parts[0].text;
+    
+        // Update the summary content 
+        summaryContentDiv.innerText = summaryText; 
     })
     .catch(error => {
         console.error('Error:', error);
