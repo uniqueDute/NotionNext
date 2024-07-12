@@ -3,7 +3,7 @@ const apiKey = 'b8087a010ded8c075c64e3bb1165b04f.zePKxgNaoTC8cNPK';
 const apiUrl = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 
 export function summarizeArticle(articleBox) {
-    let contentArray = [];
+    const contentArray = [];
 
     const blogTitleElement = articleBox.querySelector('h2.notion-h-title');
     if (blogTitleElement) {
@@ -68,7 +68,7 @@ export function summarizeArticle(articleBox) {
 }
 
 export function createSummaryBox(articleBox) {
-    let wrapperDiv = articleBox;
+    const wrapperDiv = articleBox;
     if (!wrapperDiv) {
         console.error('Article wrapper not found');
         return;
@@ -102,7 +102,6 @@ export function createSummaryBox(articleBox) {
     aiSpeechBox.classList.add('ai-speech-box');
     aiSpeechBox.style.padding = '0 14px 14px 14px'; // 设置内边距（上, 右, 下, 左）
     aiSpeechBox.style.backgroundColor = '#f9fafa'; // 设置背景色
-
 
     const aiSpeechContent = document.createElement('div');
     aiSpeechContent.style.padding = '5px'; // 设置内边距
