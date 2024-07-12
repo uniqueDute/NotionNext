@@ -38,14 +38,30 @@ const NotionPage = ({ post, className }) => {
     if (articleWrapper) {
       // 获取具有 id 为 "notion-article" 的元素
       const articleBox = document.getElementById('notion-article');
-        // 创建摘要框
+      // 创建摘要框
       createSummaryBox(articleBox);
     }
 
+    // 定义 hashchange 事件处理函数
+    const handleHashChange = () => {
+      clearSummaryBox();
+      autoScrollToHash();
+      const articleWrapper = document.getElementById('article-wrapper');
+      if (articleWrapper) {
+        const articleBox = document.getElementById('notion-article');
+        createSummaryBox(articleBox);
+      }
+    };
+
+    // 添加 hashchange 事件监听器
+    window.addEventListener('hashchange', handleHashChange);
+
+    // 清理函数
     return () => {
       clearSummaryBox();
+      window.removeEventListener('hashchange', handleHashChange);
     };
-  }) 
+  }, []);
 
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
