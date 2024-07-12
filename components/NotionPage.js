@@ -52,8 +52,6 @@ const NotionPage = ({ post, className }) => {
     // 定义处理 URL 变化的函数
     const handleUrlChange = () => {
         const currentBasePath = getBasePath();
-        console.log(currentBasePath);
-        console.log(previousBasePath);
 
         // 仅在基础路径部分变化时进行清理
         if (previousBasePath !== currentBasePath) {
@@ -92,10 +90,10 @@ const NotionPage = ({ post, className }) => {
       processGalleryImg(zoomRef?.current)
     }
 
-    // 页内数据库点击禁止跳转，只能查看
-    if (POST_DISABLE_DATABASE_CLICK) {
-      processDisableDatabaseUrl()
-    }
+    // // 页内数据库点击禁止跳转，只能查看
+    // if (POST_DISABLE_DATABASE_CLICK) {
+    //   processDisableDatabaseUrl()
+    // }
 
     /**
      * 放大查看图片时替换成高清图像
