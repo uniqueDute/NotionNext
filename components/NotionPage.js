@@ -32,8 +32,15 @@ const NotionPage = ({ post, className }) => {
   useEffect(() => {
     // 检测当前的url并自动滚动到对应目标
     autoScrollToHash();
-    const articleBox = document.getElementById('notion-article');
-    createSummaryBox(articleBox);
+    // 获取具有 id 为 "article-wrapper" 的元素
+    const articleWrapper = document.getElementById('article-wrapper');
+    // 检查该元素是否存在
+    if (articleWrapper) {
+      // 获取具有 id 为 "notion-article" 的元素
+      const articleBox = document.getElementById('notion-article');
+        // 创建摘要框
+        createSummaryBox(articleBox);
+    }
   }, [])
 
   // 页面文章发生变化时会执行的勾子
