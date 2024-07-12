@@ -43,7 +43,7 @@ const NotionPage = ({ post, className }) => {
     }
     // 清理函数用于 URL 变化时
     return () => {
-      clearSummaryBox(); // 在组件卸载或 URL 变化时清除摘要框
+      clearSummaryBox(); 
     };
   } ,[window.location.pathname])
 
