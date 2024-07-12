@@ -8,6 +8,7 @@ export default async (req, res) => {
 
   // 确保请求方法为POST
   if (req.method !== 'POST') {
+    console.log("11111111111111111111");
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
