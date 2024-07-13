@@ -108,7 +108,6 @@ export function clearSummaryBox() {
       const decoder = new TextDecoder();
     
       let buffer = '';
-      let inProgressData = ''; // 用于存储正在处理的行
     
       while (true) {
         const { done, value } = await reader.read();
