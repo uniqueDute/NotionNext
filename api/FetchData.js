@@ -1,20 +1,18 @@
 export default async (req, res) => {
-  console.log(`Received ${req.method} request`); // 调试日志
+  console.log(`收到 ${req.method} 请求`);
 
   if (req.method !== 'POST') {
-    console.error('Invalid request method');
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    console.error('无效的请求方法');
+    return res.status(405).json({ error: '方法不允许' });
   }
 
   const API_KEY = process.env.API_KEY;
   const API_URL = process.env.API_URL;
-
   const { blogContent } = req.body;
-  console.log(`Received blogContent: ${blogContent}`); // 调试日志
 
   if (!blogContent) {
-    console.error('Missing blogContent');
-    return res.status(400).json({ error: 'Blog content is required' });
+    console.error('缺少 blogContent');
+    return res.status(400).json({ error: '需要提供博客内容' });
   }
 
   const prompt = `请对以下文章内容进行100-200字的总结：\n\n${blogContent}`;
@@ -37,14 +35,12 @@ export default async (req, res) => {
       body: JSON.stringify(requestData)
     });
 
-    console.log(`API request status: ${response.status}`);
-
     if (!response.ok) {
-      console.error('Network response was not ok', response.statusText);
-      throw new Error('Network response was not ok');
+      console.error('网络响应不正常', response.statusText);
+      return res.status(response.status).json({ error: '网络响应不正常' });
     }
 
-    // Set up streaming response
+    // 设置流式响应头
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
@@ -54,23 +50,30 @@ export default async (req, res) => {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
+    let buffer = '';
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-      
-      const chunk = decoder.decode(value, { stream: true });
-      const data = JSON.parse(chunk);
 
-      if (data.candidates && data.candidates.length > 0) {
-        const summaryText = data.candidates[0].content.parts[0].text;
-        console.log('Summary chunk:', summaryText);
-        res.write(`data: ${JSON.stringify({ summary: summaryText })}\n\n`);
+      buffer += decoder.decode(value, { stream: true });
+
+      let boundary = buffer.indexOf('\n');
+      while (boundary !== -1) {
+        const line = buffer.slice(0, boundary);
+        buffer = buffer.slice(boundary + 1);
+
+        if (line.startsWith('data: ')) {
+          res.write(`data: ${line.slice(6)}\n\n`);
+        }
+
+        boundary = buffer.indexOf('\n');
       }
     }
 
     res.end();
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: '摘要生成失败，请稍后再试。' });
+    console.error('错误:', error);
+    res.status(500).json({ error: '请求处理失败，请稍后再试。' });
   }
 };

@@ -97,34 +97,42 @@ export function clearSummaryBox() {
         },
         body: JSON.stringify({ blogContent })
       });
-  
+    
       console.log('Response status:', response.status);
-  
+    
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+    
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-  
+    
+      let buffer = '';
+    
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-  
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
-  
-        for (const line of lines) {
+    
+        buffer += decoder.decode(value, { stream: true });
+    
+        let boundary = buffer.indexOf('\n');
+        while (boundary !== -1) {
+          const line = buffer.slice(0, boundary);
+          buffer = buffer.slice(boundary + 1);
+    
           if (line.startsWith('data: ')) {
             const data = JSON.parse(line.slice(6));
             if (data.summary) {
               summaryContentDiv.innerText += data.summary;
             }
           }
+    
+          boundary = buffer.indexOf('\n');
         }
       }
-      } catch (error) {
-        console.error('Error:', error);
-        summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
-      }
+    } catch (error) {
+      console.error('Error:', error);
+      summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
+    }
+    
 }
