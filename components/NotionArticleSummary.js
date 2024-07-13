@@ -133,6 +133,6 @@ export function clearSummaryBox() {
     } catch (error) {
       console.error('Error:', error);
       summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
-    }
+    }    
     
 }

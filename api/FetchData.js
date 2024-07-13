@@ -50,32 +50,18 @@ export default async (req, res) => {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
-    let buffer = '';
-
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      buffer += decoder.decode(value, { stream: true });
+      const chunk = decoder.decode(value, { stream: true });
+      const data = JSON.parse(chunk);
 
-      let boundary = buffer.indexOf('\n');
-      while (boundary !== -1) {
-        const line = buffer.slice(0, boundary);
-        buffer = buffer.slice(boundary + 1);
-
-        // Assuming the line is JSON data
-        if (line.trim().startsWith('{')) {  
-          const data = JSON.parse(line);
-
-          // Check if the data contains the summary and send it to the client
-          if (data.contents && data.contents.length > 0 && data.contents[0].parts && data.contents[0].parts.length > 0) {
-            const summaryText = data.contents[0].parts[0].text;
-            console.log('Summary chunk:', summaryText);
-            res.write(`data: ${JSON.stringify({ summary: summaryText })}\n\n`);
-          }
-        }
-
-        boundary = buffer.indexOf('\n');
+      if (data.candidates && data.candidates.length > 0) {
+        data.candidates.forEach(candidate => {
+          const summaryText = candidate.content.parts.map(part => part.text).join('');
+          res.write(`data: ${JSON.stringify({ summary: summaryText })}\n\n`);
+        });
       }
     }
 
