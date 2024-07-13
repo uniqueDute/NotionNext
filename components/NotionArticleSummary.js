@@ -90,26 +90,9 @@ export function clearSummaryBox() {
 
     const summaryContentDiv = document.getElementById('summaryContentDiv');
 
-    // Create and append summaryText and cursor elements
-    const summaryText = document.createElement('span');
-    summaryText.id = 'summaryText';
-    summaryContentDiv.appendChild(summaryText);
-
     const cursor = document.createElement('span');
     cursor.className = 'cursor';
     summaryContentDiv.appendChild(cursor);
-
-    // Add styles dynamically
-    summaryContentDiv.style.border = '1px solid #ccc';
-    summaryContentDiv.style.padding = '10px';
-    summaryContentDiv.style.whiteSpace = 'pre-line'; 
-    summaryContentDiv.style.overflow = 'hidden';
-    summaryContentDiv.style.maxHeight = '300px';
-    summaryContentDiv.style.fontFamily = 'monospace';
-    summaryContentDiv.style.position = 'relative';
-
-    summaryText.style.fontFamily = 'monospace';
-    summaryText.style.whiteSpace = 'pre-line';
 
     cursor.style.display = 'inline-block';
     cursor.style.width = '2px';
@@ -118,7 +101,6 @@ export function clearSummaryBox() {
     cursor.style.animation = 'blinkCursor 1s step-end infinite';
 
     const styleSheet = document.createElement("style");
-    styleSheet.type = "text/css";
     styleSheet.innerText = `
       @keyframes blinkCursor {
         0%, 100% {
