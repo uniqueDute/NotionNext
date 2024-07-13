@@ -108,7 +108,11 @@ export function clearSummaryBox() {
         console.log('Response data:', data);
     
         if (data.summary) {
-          summaryContentDiv.innerText = data.summary;
+            // Clear existing content
+            summaryContentDiv.innerText = '';
+
+            // Typewriter effect
+            await typeWriterEffect(data.summary, summaryContentDiv);
         } else {
           throw new Error('No summary found in response');
         }
@@ -116,4 +120,17 @@ export function clearSummaryBox() {
         console.error('Error:', error);
         summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
       }
+}
+
+// Function to simulate typewriter effect
+async function typeWriterEffect(text, element) {
+  for (let i = 0; i < text.length; i++) {
+    element.innerText += text.charAt(i);
+    await sleep(50); // Adjust speed (milliseconds per character)
+  }
+}
+
+// Function to simulate delay
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
