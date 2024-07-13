@@ -45,14 +45,15 @@ export default function ArticleInfo (props) {
                         </Link>
                     </span>
                     <span className='mr-2'>|</span>
+                    <WordCount />
+                    <span className='mr-2'>|</span>
                     <span className="hidden busuanzi_container_page_pv font-light mr-2">
                         <i className='mr-1 fas fa-eye' />
                         &nbsp;
                         <span className="mr-2 busuanzi_value_page_pv" style={{marginRight:"0px"}}/>
                     </span>
-                    <span className='mr-2'>|</span>
                 </div>)}
-                <WordCount />
+                
             </div>
         </section>
   )
