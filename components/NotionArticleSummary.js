@@ -90,53 +90,30 @@ export function clearSummaryBox() {
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
     try {
-      const response = await fetch('/api/FetchData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ blogContent })
-      });
+        const response = await fetch('/api/FetchData', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ blogContent })
+        });
     
-      console.log('Response status:', response.status);
+        console.log('Response status:', response.status);
     
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-    
-      let buffer = '';
-    
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-    
-        buffer += decoder.decode(value, { stream: true });
-    
-        let boundary = buffer.indexOf('\n');
-        while (boundary !== -1) {
-          const line = buffer.slice(0, boundary).trim(); // 去除行首尾的空白符
-          buffer = buffer.slice(boundary + 1);
-    
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
-              if (data.summary) {
-                summaryContentDiv.innerText += data.summary;
-              }
-            } catch (e) {
-              console.error('JSON parse error:', e);
-            }
-          }
-    
-          boundary = buffer.indexOf('\n');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
-    }
     
+        const data = await response.json();
+        console.log('Response data:', data);
+    
+        if (data.summary) {
+          summaryContentDiv.innerText = data.summary;
+        } else {
+          throw new Error('No summary found in response');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
+      }
 }
