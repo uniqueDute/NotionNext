@@ -108,6 +108,7 @@ export function clearSummaryBox() {
       const decoder = new TextDecoder();
     
       let buffer = '';
+      let inProgressData = ''; // 用于存储正在处理的行
     
       while (true) {
         const { done, value } = await reader.read();
@@ -117,13 +118,17 @@ export function clearSummaryBox() {
     
         let boundary = buffer.indexOf('\n');
         while (boundary !== -1) {
-          const line = buffer.slice(0, boundary);
+          const line = buffer.slice(0, boundary).trim(); // 去除行首尾的空白符
           buffer = buffer.slice(boundary + 1);
     
           if (line.startsWith('data: ')) {
-            const data = JSON.parse(line.slice(6));
-            if (data.summary) {
-              summaryContentDiv.innerText += data.summary;
+            try {
+              const data = JSON.parse(line.slice(6));
+              if (data.summary) {
+                summaryContentDiv.innerText += data.summary;
+              }
+            } catch (e) {
+              console.error('JSON parse error:', e);
             }
           }
     
@@ -133,6 +138,6 @@ export function clearSummaryBox() {
     } catch (error) {
       console.error('Error:', error);
       summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
-    }    
+    }
     
 }

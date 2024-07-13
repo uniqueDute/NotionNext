@@ -21,6 +21,7 @@ export default async (req, res) => {
     model: 'gemini-pro',
     contents: [
       {
+        role: "user",
         parts: [{ text: prompt }]
       }
     ],
@@ -40,28 +41,44 @@ export default async (req, res) => {
       return res.status(response.status).json({ error: '网络响应不正常' });
     }
 
-    // 设置流式响应头
-    res.writeHead(200, {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive'
-    });
-
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
+    let buffer = ''; // 用于存储未完成的 JSON 字符串
+    let buffer_lv = 0; // 用于记录 JSON 嵌套深度
+    let in_string = false; // 用于判断当前是否在字符串中
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
       const chunk = decoder.decode(value, { stream: true });
-      const data = JSON.parse(chunk);
 
-      if (data.candidates && data.candidates.length > 0) {
-        data.candidates.forEach(candidate => {
-          const summaryText = candidate.content.parts.map(part => part.text).join('');
-          res.write(`data: ${JSON.stringify({ summary: summaryText })}\n\n`);
-        });
+      for (let char of chunk) {
+        if (char === '"') {
+          in_string = !in_string;
+        } else if (!in_string && (char === '{' || char === '[')) {
+          buffer_lv += 1;
+        } else if (!in_string && (char === '}' || char === ']')) {
+          buffer_lv -= 1;
+        }
+
+        buffer += char;
+
+        if (buffer_lv === 0 && buffer.trim()) {
+          try {
+            const data = JSON.parse(buffer);
+            buffer = ''; // 清空缓冲区，准备处理下一个 JSON 数据
+
+            if (data.candidates && data.candidates.length > 0) {
+              data.candidates.forEach(candidate => {
+                const summaryText = candidate.content.parts.map(part => part.text).join('');
+                res.write(`data: ${JSON.stringify({ summary: summaryText })}\n\n`);
+              });
+            }
+          } catch (e) {
+            console.error('JSON 解析错误:', e);
+          }
+        }
       }
     }
 
