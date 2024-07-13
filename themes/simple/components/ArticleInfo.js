@@ -32,7 +32,7 @@ export default function ArticleInfo (props) {
                         {post?.tags && post?.tags?.length > 0 && post?.tags.map(t => <span style={{marginLeft:"0px"}} key={t}>/ <Link href={`/tag/${t}`}><span className=' hover:text-red-400 transition-all duration-200'>{t}</span></Link></span>)}
                     </div>)}
 
-                {post?.type !== 'Page' && (<div className='' style="display: flex; align-items: center;">
+                {post?.type !== 'Page' && (<div className=''>
                     <span> <object type="image/svg+xml" data="/svg/fabu.svg"/>:</span>
                         <Link
                             href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}
