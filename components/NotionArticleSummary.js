@@ -90,28 +90,39 @@ export function clearSummaryBox() {
     const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
     try {
-        const response = await fetch('/api/FetchData', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ blogContent })
-        });
-    
-        console.log('Response status:', response.status);
-    
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+      const response = await fetch('/api/FetchData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ blogContent })
+      });
+  
+      console.log('Response status:', response.status);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+  
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+  
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+  
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = JSON.parse(line.slice(6));
+            if (data.summary) {
+              summaryContentDiv.innerText += data.summary;
+            }
+          }
         }
-    
-        const data = await response.json();
-        console.log('Response data:', data);
-    
-        if (data.summary) {
-          summaryContentDiv.innerText = data.summary;
-        } else {
-          throw new Error('No summary found in response');
-        }
+      }
       } catch (error) {
         console.error('Error:', error);
         summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
