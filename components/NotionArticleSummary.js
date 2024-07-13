@@ -87,7 +87,49 @@ export function clearSummaryBox() {
 
     const blogContent = contentArray.join('\n\n');
 
-    const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
+
+    const summaryContentDiv = document.getElementById('summaryContentDiv');
+
+    // Create and append summaryText and cursor elements
+    const summaryText = document.createElement('span');
+    summaryText.id = 'summaryText';
+    summaryContentDiv.appendChild(summaryText);
+
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    summaryContentDiv.appendChild(cursor);
+
+    // Add styles dynamically
+    summaryContentDiv.style.border = '1px solid #ccc';
+    summaryContentDiv.style.padding = '10px';
+    summaryContentDiv.style.whiteSpace = 'pre-line'; 
+    summaryContentDiv.style.overflow = 'hidden';
+    summaryContentDiv.style.maxHeight = '300px';
+    summaryContentDiv.style.fontFamily = 'monospace';
+    summaryContentDiv.style.position = 'relative';
+
+    summaryText.style.fontFamily = 'monospace';
+    summaryText.style.whiteSpace = 'pre-line';
+
+    cursor.style.display = 'inline-block';
+    cursor.style.width = '2px';
+    cursor.style.height = '1em';
+    cursor.style.backgroundColor = 'black';
+    cursor.style.animation = 'blinkCursor 1s step-end infinite';
+
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = `
+      @keyframes blinkCursor {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(styleSheet);
 
     try {
         const response = await fetch('/api/FetchData', {
@@ -112,13 +154,16 @@ export function clearSummaryBox() {
             summaryContentDiv.innerText = '';
 
             // Typewriter effect
-            await typeWriterEffect(data.summary, summaryContentDiv);
+            await typeWriterEffect(data.summary, summaryContentDiv,cursor);
         } else {
           throw new Error('No summary found in response');
         }
       } catch (error) {
         console.error('Error:', error);
         summaryContentDiv.innerText = `摘要生成过于频繁，请稍后再试。`;
+      } finally {
+        // Hide cursor after typing effect completes
+        cursor.style.display = 'none';
       }
 }
 
@@ -127,7 +172,7 @@ async function typeWriterEffect(text, textElement, cursorElement) {
   for (let i = 0; i < text.length; i++) {
     textElement.innerText += text.charAt(i);
     cursorElement.style.left = textElement.offsetWidth + 'px';
-    await sleep(50); // Adjust speed (milliseconds per character)
+    await sleep(30); // Adjust speed (milliseconds per character)
   }
 }
 
