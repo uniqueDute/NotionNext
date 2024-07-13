@@ -119,10 +119,7 @@ export function clearSummaryBox() {
       } catch (error) {
         console.error('Error:', error);
         summaryContentDiv.innerText = `摘要生成过于频繁，请稍后再试。`;
-      } finally {
-        // Hide cursor after typing effect completes
-        cursor.style.display = 'none';
-      }
+      } 
 }
 
 // Function to simulate typewriter effect
