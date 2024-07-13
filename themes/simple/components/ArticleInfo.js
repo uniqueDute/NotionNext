@@ -25,7 +25,7 @@ export default function ArticleInfo (props) {
 
             <div className='flex flex-wrap text-gray-700 dark:text-gray-300'>
                 {post?.type !== 'Page' && (
-                    <div className="flex space-x-3 mr-4" style="align-items: center;">
+                    <div className="flex space-x-3 mr-4">
                         <img src='/svg/xiaoxin.svg' width='16' height='16' />
                         <span>
                         <a href={siteConfig('SIMPLE_AUTHOR_LINK', null, CONFIG)}>{siteConfig('AUTHOR')}</a>
