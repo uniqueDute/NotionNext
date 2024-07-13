@@ -87,46 +87,7 @@ export function clearSummaryBox() {
 
     const blogContent = contentArray.join('\n\n');
 
-
-    let summaryContentDiv = document.getElementById('summaryContentDiv');
-
-    // Create and append summaryText and cursor elements
-    const summaryText = document.createElement('span');
-    summaryText.id = 'summaryText';
-    summaryContentDiv.appendChild(summaryText);
-
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor';
-    summaryContentDiv.appendChild(cursor);
-
-    // Add styles dynamically
-    summaryContentDiv.style.border = '1px solid #ccc';
-    summaryContentDiv.style.padding = '10px';
-    summaryContentDiv.style.whiteSpace = 'pre-line'; 
-    summaryContentDiv.style.overflow = 'hidden';
-    summaryContentDiv.style.maxHeight = '300px';
-    summaryContentDiv.style.fontFamily = 'monospace';
-    summaryContentDiv.style.position = 'relative';
-
-
-    cursor.style.display = 'inline-block';
-    cursor.style.width = '2px';
-    cursor.style.height = '1em';
-    cursor.style.backgroundColor = 'black';
-    cursor.style.animation = 'blinkCursor 1s step-end infinite';
-
-    const styleSheet = document.createElement("style");
-    styleSheet.innerText = `
-      @keyframes blinkCursor {
-        0%, 100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(styleSheet);
+    const summaryContentDiv = articleBox.querySelector('.ai-speech-content');
 
     try {
         const response = await fetch('/api/FetchData', {
@@ -151,7 +112,7 @@ export function clearSummaryBox() {
             summaryContentDiv.innerText = '';
 
             // Typewriter effect
-            await typeWriterEffect(data.summary, summaryContentDiv,cursor);
+            await typeWriterEffect(data.summary, summaryContentDiv);
         } else {
           throw new Error('No summary found in response');
         }
@@ -165,10 +126,9 @@ export function clearSummaryBox() {
 }
 
 // Function to simulate typewriter effect
-async function typeWriterEffect(text, textElement, cursorElement) {
+async function typeWriterEffect(text, textElement) {
   for (let i = 0; i < text.length; i++) {
     textElement.innerText += text.charAt(i);
-    cursorElement.style.left = textElement.offsetWidth + 'px';
     await sleep(30); // Adjust speed (milliseconds per character)
   }
 }

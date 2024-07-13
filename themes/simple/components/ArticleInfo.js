@@ -4,6 +4,7 @@ import CONFIG from '../config'
 import { siteConfig } from '@/lib/config'
 import { formatDateFmt } from '@/lib/utils/formatDate'
 import NotionIcon from '@/components/NotionIcon'
+import WordCount from './WordCount'
 
 /**
  * 文章描述
@@ -51,7 +52,7 @@ export default function ArticleInfo (props) {
                         <span className="mr-2 busuanzi_value_page_pv" />
                     </span>
                 </div>)}
-
+                <WordCount />
             </div>
         </section>
   )
