@@ -17,20 +17,15 @@ export default async (req, res) => {
     return res.status(400).json({ error: 'Blog content is required' });
   }
 
-  const prompt = `请对以下文章内容进行100-200字的总结：\n\n${blogContent}`;
+  const prompt = `你是一个摘要生成工具,你需要解释我发送给你的内容,不要换行,不要超过200字,不要包含链接,只需要简单介绍文章的内容,不需要提出建议和缺少的东西,不要提及用户.请用中文回答,下面这篇文章讲述了什么?\n\n${blogContent}`;
 
   const requestData = {
     model: 'gemini-pro',
-    "messages": [
-						{
-							"role": "system",
-							"content": "你是一个摘要生成工具,你需要解释我发送给你的内容,不要换行,不要超过200字,不要包含链接,只需要简单介绍文章的内容,不需要提出建议和缺少的东西,不要提及用户.请用中文回答,这篇文章讲述了什么?"
-						},
-						{
-							"role": "user",
-							"content": body.content
-						}
-					],
+    contents: [
+      {
+        parts: [{ text: prompt }]
+      }
+    ],
   };
 
   try {

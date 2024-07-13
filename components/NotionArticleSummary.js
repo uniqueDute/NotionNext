@@ -44,7 +44,7 @@ export function createSummaryBox(articleBox) {
     aiSpeechContent.style.color = '#1e1e1e';
     aiSpeechContent.style.textAlign = 'justify'; 
     aiSpeechContent.style.lineHeight = '1.6'; 
-    aiSpeechContent.innerText = '正在生成AI摘要，请稍候...';
+    aiSpeechContent.innerText = '正在生成，请稍候...';
     aiSpeechBox.appendChild(aiSpeechContent);
     summaryBox.appendChild(aiTitleDiv);
     summaryBox.appendChild(aiSpeechBox);
@@ -118,7 +118,7 @@ export function clearSummaryBox() {
         }
       } catch (error) {
         console.error('Error:', error);
-        summaryContentDiv.innerText = `摘要生成失败: ${error.message}. 请稍后再试。`;
+        summaryContentDiv.innerText = `摘要生成过于频繁，请稍后再试。`;
       }
 }
 
