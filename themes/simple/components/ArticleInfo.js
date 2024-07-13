@@ -28,7 +28,7 @@ export default function ArticleInfo (props) {
                     <div className="flex space-x-3 mr-4">
                         <img src='/svg/xiaoxin.svg' width='18' height='18' />
                         <span style={{marginLeft:"0px"}}>
-                        :<a href={siteConfig('SIMPLE_AUTHOR_LINK', null, CONFIG)}>{siteConfig('AUTHOR')}</a>
+                        :&nbsp;<a href={siteConfig('SIMPLE_AUTHOR_LINK', null, CONFIG)}>{siteConfig('AUTHOR')}</a>
                         </span>
                         {post?.category && <span>  <i className="fa-regular fa-folder"></i> <a href={`/category/${post?.category}`} className="hover:text-red-400 transition-all duration-200">{post?.category}</a></span>}
                         {post?.tags && post?.tags?.length > 0 && post?.tags.map(t => <span style={{marginLeft:"0px"}} key={t}>/ <Link href={`/tag/${t}`}><span className=' hover:text-red-400 transition-all duration-200'>{t}</span></Link></span>)}
@@ -37,7 +37,7 @@ export default function ArticleInfo (props) {
                 {post?.type !== 'Page' && (<div className='flex'>
                     <img src='/svg/fabu.svg' width='16' height='16' />
                     <span> 
-                        :<Link
+                        :&nbsp;<Link
                             href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}
                             passHref
                             className="pl-1 mr-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 border-b dark:border-gray-500 border-dashed">

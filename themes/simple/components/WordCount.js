@@ -14,8 +14,8 @@ export default function WordCount() {
 
   return <div id='wordCountWrapper' className='flex justify-center my-auto font-light'>
     <object type="image/svg+xml" data="/svg/wordcount.svg" className='mr-1 my-auto' />
-    <span className='hidden md:block'>{locale.COMMON.WORD_COUNT}:</span>
-    <strong id='wordCount'>0</strong> &nbsp;|&nbsp; <object type="image/svg+xml" data="/svg/read.svg" className='mr-1 my-auto' />{locale.COMMON.READ_TIME} <span className='hidden md:block'>:</span> <strong id='readTime'>0</strong> {locale.COMMON.MINUTE}
+    <span className='hidden md:block'>{locale.COMMON.WORD_COUNT}:&nbsp;</span>
+    <strong id='wordCount'>0</strong> &nbsp;|&nbsp; <object type="image/svg+xml" data="/svg/read.svg" className='mr-1 my-auto' />{locale.COMMON.READ_TIME} <span className='hidden md:block'>:&nbsp;</span> <strong id='readTime'>0</strong> {locale.COMMON.MINUTE}
   </div>
 }
 
