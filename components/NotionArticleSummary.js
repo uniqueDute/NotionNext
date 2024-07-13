@@ -123,9 +123,10 @@ export function clearSummaryBox() {
 }
 
 // Function to simulate typewriter effect
-async function typeWriterEffect(text, element) {
+async function typeWriterEffect(text, textElement, cursorElement) {
   for (let i = 0; i < text.length; i++) {
-    element.innerText += text.charAt(i);
+    textElement.innerText += text.charAt(i);
+    cursorElement.style.left = textElement.offsetWidth + 'px';
     await sleep(50); // Adjust speed (milliseconds per character)
   }
 }
