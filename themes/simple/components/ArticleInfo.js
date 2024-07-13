@@ -25,9 +25,11 @@ export default function ArticleInfo (props) {
 
             <div className='flex flex-wrap text-gray-700 dark:text-gray-300'>
                 {post?.type !== 'Page' && (
-                    <div className="space-x-3 mr-4" style="display: flex;">
-                        <span><object type="image/svg+xml" data="/svg/xiaoxin.svg"></object></span>
+                    <div className="space-x-3 mr-4" style="display: flex; align-items: center;">
+                        <img src='/svg/xiaoxin.svg' width='16' height='16' />
+                        <span>
                         <a href={siteConfig('SIMPLE_AUTHOR_LINK', null, CONFIG)}>{siteConfig('AUTHOR')}</a>
+                        </span>
                         {post?.category && <span>  <i className="fa-regular fa-folder"></i> <a href={`/category/${post?.category}`} className="hover:text-red-400 transition-all duration-200">{post?.category}</a></span>}
                         {post?.tags && post?.tags?.length > 0 && post?.tags.map(t => <span style={{marginLeft:"0px"}} key={t}>/ <Link href={`/tag/${t}`}><span className=' hover:text-red-400 transition-all duration-200'>{t}</span></Link></span>)}
                     </div>)}
