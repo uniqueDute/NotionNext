@@ -28,6 +28,7 @@ const NotionPage = ({ post, className }) => {
     })
 
   const zoomRef = useRef(zoom ? zoom.clone() : null)
+  const createSummaryBox = useCreateSummaryBox(); // 如果文章存在，创建摘要框
 
   useEffect(() => {
     // 自动滚动到当前 URL 哈希值对应的页面部分
@@ -36,11 +37,9 @@ const NotionPage = ({ post, className }) => {
     const articleWrapper = document.getElementById('article-wrapper');
     if (articleWrapper) {
         const articleBox = document.getElementById('notion-article');
-        const createSummaryBox = useCreateSummaryBox(); // 如果文章存在，创建摘要框
         createSummaryBox(articleBox);
     }  
-
-}, ); 
+}, [createSummaryBox]); 
 
 
 

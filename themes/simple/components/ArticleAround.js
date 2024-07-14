@@ -11,15 +11,17 @@ export default function ArticleAround({ prev, next }) {
     return <></>
   }
 
+  const clearSummaryBox = useClearSummaryBox();
+  const createSummaryBox = useCreateSummaryBox();
+
   const handleClick = () => {
-    const clearSummaryBox = useClearSummaryBox();
-    clearSummaryBox;
+    clearSummaryBox();
+
     const articleWrapper = document.getElementById('article-wrapper');
     if (articleWrapper) {
-        const articleBox = document.getElementById('notion-article');
-        const createSummaryBox = useCreateSummaryBox();
-        createSummaryBox(articleBox); // 如果文章存在，创建摘要框
-    }  
+      const articleBox = document.getElementById('notion-article');
+      createSummaryBox(articleBox); // 如果文章存在，创建摘要框
+    }
   };
   return (
         <section className='text-gray-800 dark:text-gray-400 h-12 flex items-center justify-between space-x-5 my-4'>
