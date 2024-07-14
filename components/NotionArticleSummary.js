@@ -22,6 +22,7 @@ export function useCreateSummaryBox() {
     summaryBox.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
 
     summaryBox.style.margin = '8px 0 0 0';
+    summaryBox.style.borderRadius = '8px';
 
     const aiTitleDiv = document.createElement('div');
     aiTitleDiv.id = 'ai-title';
@@ -33,6 +34,8 @@ export function useCreateSummaryBox() {
     aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI小白</span>';
     aiTitleDiv.style.display = 'flex';
     aiTitleDiv.style.alignItems = 'center';
+    aiTitleDiv.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
+    aiTitleDiv.style.borderRadius = '8px';
 
     const icon = aiTitleDiv.querySelector('img');
     icon.style.marginRight = '8px';
@@ -40,10 +43,10 @@ export function useCreateSummaryBox() {
     const aiSpeechBox = document.createElement('div');
     aiSpeechBox.classList.add('ai-speech-box');
     aiSpeechBox.style.padding = '0 14px 14px 14px';
-    aiTitleDiv.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
-
+    
     const aiSpeechContent = document.createElement('div');
     aiSpeechContent.style.padding = '5px';
+    aiSpeechContent.style.borderRadius = '8px';
     aiSpeechContent.classList.add('ai-speech-content');
     aiSpeechContent.style.backgroundColor = newStatus ? '#ffffff' : '#0d0d0d';
     aiSpeechContent.style.color = '#1e1e1e';
