@@ -31,7 +31,7 @@ export function useCreateSummaryBox() {
     
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
-    aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;font-family: sans-serif; ">AI小白</span>';
+    aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;font-family: 微软雅黑, Arial, sans-serif; ">Ai小白</span>';
     aiTitleDiv.style.display = 'flex';
     aiTitleDiv.style.alignItems = 'center';
     aiTitleDiv.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
