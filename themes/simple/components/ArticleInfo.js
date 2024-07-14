@@ -14,7 +14,7 @@ import WordCount from './WordCount'
 export default function ArticleInfo (props) {
   const { post } = props
 
-  const { locale } = useGlobal()
+  const { isDarkMode,locale } = useGlobal()
 
   return (
         <section className="mt-2 text-gray-600 dark:text-gray-400 leading-8">
