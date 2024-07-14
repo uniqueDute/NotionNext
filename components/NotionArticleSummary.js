@@ -21,7 +21,7 @@ export function useCreateSummaryBox() {
     summaryBox.id = 'post-ai';
     summaryBox.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
 
-    summaryBox.style.margin = '8px 0 0 0';
+    summaryBox.style.margin = '8px 0 10px 0';
     summaryBox.style.borderRadius = '8px';
 
     const aiTitleDiv = document.createElement('div');
