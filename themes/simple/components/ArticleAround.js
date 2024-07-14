@@ -12,11 +12,13 @@ export default function ArticleAround({ prev, next }) {
   }
 
   const handleClick = () => {
-    useClearSummaryBox();
+    const clearSummaryBox = useClearSummaryBox();
+    clearSummaryBox;
     const articleWrapper = document.getElementById('article-wrapper');
     if (articleWrapper) {
         const articleBox = document.getElementById('notion-article');
-        useCreateSummaryBox(articleBox); // 如果文章存在，创建摘要框
+        const createSummaryBox = useCreateSummaryBox();
+        createSummaryBox(articleBox); // 如果文章存在，创建摘要框
     }  
   };
   return (
