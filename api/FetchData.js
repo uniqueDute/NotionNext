@@ -2,6 +2,7 @@ import { setTimeout } from 'timers/promises';
 
 let lastRequestTime = 0;
 const REQUEST_INTERVAL = 2000; // 2 seconds interval in milliseconds
+let mutex = Promise.resolve(); // Mutex initialized with a resolved promise
 
 export default async (req, res) => {
   try {
@@ -103,18 +104,24 @@ export default async (req, res) => {
       }
     };
 
-    const data = await makeRequest();
-    console.log('API response received');
+    mutex = mutex.then(async () => {
+      const data = await makeRequest();
+      console.log('API response received');
 
-    if (data.candidates && data.candidates.length > 0) {
-      const summaryText = data.candidates[0].content.parts[0].text;
-      console.log(`Summary generated, length: ${summaryText.length}`);
-      res.status(200).json({ summary: summaryText });
-    } else {
-      console.error('No candidates found in the response');
-      console.error('Full API response:', JSON.stringify(data));
-      res.status(500).json({ error: 'No summary generated' });
-    }
+      if (data.candidates && data.candidates.length > 0) {
+        const summaryText = data.candidates[0].content.parts[0].text;
+        console.log(`Summary generated, length: ${summaryText.length}`);
+        res.status(200).json({ summary: summaryText });
+      } else {
+        console.error('No candidates found in the response');
+        console.error('Full API response:', JSON.stringify(data));
+        res.status(500).json({ error: 'No summary generated' });
+      }
+    }).catch(error => {
+      console.error('Unhandled error:', error);
+      res.status(500).json({ error: '摘要生成失败，请稍后再试。', details: error.message });
+    });
+
   } catch (error) {
     console.error('Unhandled error:', error);
     res.status(500).json({ error: '摘要生成失败，请稍后再试。', details: error.message });
