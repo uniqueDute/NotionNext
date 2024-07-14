@@ -24,7 +24,7 @@ export function createSummaryBox(articleBox) {
 
     const aiTitleDiv = document.createElement('div');
     aiTitleDiv.id = 'ai-title';
-    aiTitleDiv.style.color = newStatus ? '##0d0d0d' : '#ffffff';
+    aiTitleDiv.style.color = newStatus ? '#0d0d0d' : '#ffffff';
     aiTitleDiv.style.padding = '8px 8px 5px 14px'; 
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
@@ -50,7 +50,7 @@ export function createSummaryBox(articleBox) {
     aiSpeechContent.style.color = '#1e1e1e';
     aiSpeechContent.style.textAlign = 'justify'; 
     aiSpeechContent.style.lineHeight = '1.6'; 
-    aiSpeechContent.style.color = newStatus ? '##0d0d0d' : '#ffffff';
+    aiSpeechContent.style.color = newStatus ? '#0d0d0d' : '#ffffff';
     aiSpeechContent.innerText = '正在生成，请稍候...';
     aiSpeechBox.appendChild(aiSpeechContent);
     summaryBox.appendChild(aiTitleDiv);
