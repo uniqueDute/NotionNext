@@ -30,7 +30,7 @@ export function useCreateSummaryBox() {
     
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
-    aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI摘要</span>';
+    aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI小白</span>';
     aiTitleDiv.style.display = 'flex';
     aiTitleDiv.style.alignItems = 'center';
 
@@ -50,7 +50,7 @@ export function useCreateSummaryBox() {
     aiSpeechContent.style.textAlign = 'justify';
     aiSpeechContent.style.lineHeight = '1.6';
     aiSpeechContent.style.color = newStatus ? '#0d0d0d' : '#ffffff';
-    aiSpeechContent.innerText = '正在生成，请稍候...';
+    aiSpeechContent.innerText = '小白正在努力分析中.....';
     aiSpeechBox.appendChild(aiSpeechContent);
     summaryBox.appendChild(aiTitleDiv);
     summaryBox.appendChild(aiSpeechBox);
