@@ -122,7 +122,6 @@ async function summarizeArticle(articleBox) {
     }
 
     const data = await response.json();
-    console.log('Response data:', data);
 
     if (data.summary) {
       summaryContentDiv.innerText = '';
