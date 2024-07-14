@@ -19,6 +19,7 @@ export function createSummaryBox(articleBox) {
     summaryBox.style.margin = '8px 0 0 0'; 
 
     const aiTitleDiv = document.createElement('div');
+    aiTitleDiv.id = 'ai-title';
     aiTitleDiv.style.padding = '8px 8px 5px 14px'; 
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
