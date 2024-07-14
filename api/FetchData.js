@@ -11,10 +11,22 @@ export default async (req, res) => {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const API_KEYS = process.env.API_KEYS ? process.env.API_KEYS.split(',').filter(Boolean) : [];
+  let API_KEYS = [];
   const API_URL = process.env.API_URL;
 
-  if (!API_KEYS.length || !API_URL) {
+  try {
+    API_KEYS = process.env.API_KEYS ? JSON.parse(process.env.API_KEYS) : [];
+    if (!Array.isArray(API_KEYS)) {
+      API_KEYS = [API_KEYS]; // Convert to array if it's a single string
+    }
+  } catch (error) {
+    console.error('Error parsing API_KEYS:', error);
+    return res.status(500).json({ error: 'Server configuration error' });
+  }
+
+  console.log(`Number of API keys: ${API_KEYS.length}`);
+
+  if (API_KEYS.length === 0 || !API_URL) {
     console.error('Missing API keys or URL');
     return res.status(500).json({ error: 'Server configuration error' });
   }
@@ -22,7 +34,7 @@ export default async (req, res) => {
   let currentKeyIndex = 0;
 
   const { blogContent } = req.body;
-  console.log(`Received blogContent: ${blogContent}`);
+  console.log(`Received blogContent length: ${blogContent ? blogContent.length : 0}`);
 
   if (!blogContent) {
     console.error('Missing blogContent');
@@ -57,6 +69,8 @@ export default async (req, res) => {
     const currentKey = API_KEYS[currentKeyIndex];
     currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
 
+    console.log(`Attempting request with key index: ${currentKeyIndex}`);
+
     try {
       const response = await fetch(`${API_URL}?key=${currentKey}`, {
         method: 'POST',
@@ -82,11 +96,11 @@ export default async (req, res) => {
 
   try {
     const data = await makeRequest();
-    console.log('API response data:', data);
+    console.log('API response received');
 
     if (data.candidates && data.candidates.length > 0) {
       const summaryText = data.candidates[0].content.parts[0].text;
-      console.log('Summary text:', summaryText);
+      console.log(`Summary generated, length: ${summaryText.length}`);
       res.status(200).json({ summary: summaryText });
     } else {
       console.error('No candidates found in the response');
