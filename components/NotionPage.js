@@ -6,7 +6,7 @@ import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef } from 'react'
 import { NotionRenderer } from 'react-notion-x'
-import {createSummaryBox } from '@/components/NotionArticleSummary';
+import {CreateSummaryBox } from '@/components/NotionArticleSummary';
 
 /**
  * 整个站点的核心组件
@@ -36,7 +36,7 @@ const NotionPage = ({ post, className }) => {
     const articleWrapper = document.getElementById('article-wrapper');
     if (articleWrapper) {
         const articleBox = document.getElementById('notion-article');
-        createSummaryBox(articleBox); // 如果文章存在，创建摘要框
+        CreateSummaryBox(articleBox); // 如果文章存在，创建摘要框
     }  
 
 }, ); 
