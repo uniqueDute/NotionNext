@@ -27,7 +27,7 @@ export function useCreateSummaryBox() {
     aiTitleDiv.id = 'ai-title';
     aiTitleDiv.style.color = newStatus ? '#0d0d0d' : '#ffffff';
     aiTitleDiv.style.padding = '8px 8px 5px 14px';
-    aiTitleDiv.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
+    
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
     aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI摘要</span>';
@@ -40,7 +40,7 @@ export function useCreateSummaryBox() {
     const aiSpeechBox = document.createElement('div');
     aiSpeechBox.classList.add('ai-speech-box');
     aiSpeechBox.style.padding = '0 14px 14px 14px';
-    aiSpeechBox.style.backgroundColor = '#f9fafa';
+    aiTitleDiv.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
 
     const aiSpeechContent = document.createElement('div');
     aiSpeechContent.style.padding = '5px';
