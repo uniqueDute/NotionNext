@@ -50,13 +50,14 @@ export const BlogItem = props => {
 
           {/* 文章信息 */}
           <header className='mb-5 text-md text-gray-700 dark:text-gray-300 flex-wrap flex leading-6'>
-            <div className='space-x-2'>
+            <div className='flex space-x-2'>
+            <img src='/svg/xiaoxin.svg' width='18' height='18' /> 
               <span>
                 {' '}
                 <a
                   href={siteConfig('SIMPLE_AUTHOR_LINK', null, CONFIG)}
                   className='p-1 hover:text-red-400 transition-all duration-200'>
-                   <img src='/svg/xiaoxin.svg' width='18' height='18' /> {siteConfig('AUTHOR')}
+                  {siteConfig('AUTHOR')}
                 </a>
               </span>
               <span>
