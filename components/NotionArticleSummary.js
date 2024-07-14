@@ -1,7 +1,7 @@
 import { useGlobal } from '@/lib/global'
 
 
-export function CreateSummaryBox(articleBox) {
+export function useCreateSummaryBox(articleBox) {
   const { isDarkMode } = useGlobal()
   const newStatus = !isDarkMode;
     const wrapperDiv = articleBox;
@@ -59,7 +59,7 @@ export function CreateSummaryBox(articleBox) {
     summarizeArticle(articleBox);
 }
 
-export function ClearSummaryBox() {
+export function useClearSummaryBox() {
     const summaryBox = document.getElementById('post-ai');
     if (summaryBox) {
         console.log('Clearing summary box');

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {ClearSummaryBox,CreateSummaryBox } from '@/components/NotionArticleSummary';
+import {useClearSummaryBox,useCreateSummaryBox } from '@/components/NotionArticleSummary';
 
 /**
  * 上一篇，下一篇文章
@@ -12,11 +12,11 @@ export default function ArticleAround({ prev, next }) {
   }
 
   const handleClick = () => {
-    ClearSummaryBox();
+    useClearSummaryBox();
     const articleWrapper = document.getElementById('article-wrapper');
     if (articleWrapper) {
         const articleBox = document.getElementById('notion-article');
-        CreateSummaryBox(articleBox); // 如果文章存在，创建摘要框
+        useCreateSummaryBox(articleBox); // 如果文章存在，创建摘要框
     }  
   };
   return (
