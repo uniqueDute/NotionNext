@@ -27,6 +27,7 @@ export function useCreateSummaryBox() {
     aiTitleDiv.id = 'ai-title';
     aiTitleDiv.style.color = newStatus ? '#0d0d0d' : '#ffffff';
     aiTitleDiv.style.padding = '8px 8px 5px 14px';
+    aiTitleDiv.style.backgroundColor = newStatus ? '#f9fafa' : '#474848';
 
     const svgIcon = `<img src='/svg/dianshi.svg' width='32' height='32' alt='AI Icon' />`;
     aiTitleDiv.innerHTML = svgIcon + '<span style="font-size: 20px;">AI摘要</span>';
