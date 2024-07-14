@@ -45,7 +45,7 @@ export function useCreateSummaryBox() {
     const aiSpeechContent = document.createElement('div');
     aiSpeechContent.style.padding = '5px';
     aiSpeechContent.classList.add('ai-speech-content');
-    aiSpeechContent.style.backgroundColor = newStatus ? '#ffffff' : '#374151';
+    aiSpeechContent.style.backgroundColor = newStatus ? '#ffffff' : '#0d0d0d';
     aiSpeechContent.style.color = '#1e1e1e';
     aiSpeechContent.style.textAlign = 'justify';
     aiSpeechContent.style.lineHeight = '1.6';

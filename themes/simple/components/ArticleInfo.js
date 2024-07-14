@@ -35,7 +35,7 @@ export default function ArticleInfo (props) {
                     </div>)}
 
                 {post?.type !== 'Page' && (<div className='flex'>
-                    <img src='/svg/fabu.svg' width='18' height='18' />
+                    <img src={isDarkMode ? "/svg/fabu-night.svg" : "/svg/fabu.svg"} width='18' height='18' />
                     <span> 
                         发布:&nbsp;<Link
                             href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}
