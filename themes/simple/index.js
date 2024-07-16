@@ -69,7 +69,44 @@ const LayoutBase = props => {
   const { children, slotTop } = props
   const { onLoading, fullWidth } = useGlobal()
   const searchModal = useRef(null)
-  const [percent] = useState(0) // 页面阅读百分比
+  const [showRightFloat, switchShow] = useState(false)
+  const [percent, changePercent] = useState(0)
+
+  const scrollListener = () => {
+    const targetRef = document.getElementById('wrapper')
+    const clientHeight = targetRef?.clientHeight
+    const scrollY = window.pageYOffset
+    const fullHeight = clientHeight - window.outerHeight
+    let per = parseFloat(((scrollY / fullHeight * 100)).toFixed(0))
+    if (per > 100) per = 100
+    const shouldShow = scrollY > 100 && per > 0
+
+    if (shouldShow !== showRightFloat) {
+      switchShow(shouldShow)
+    }
+    changePercent(per)
+  }
+
+  useEffect(() => {
+    // facebook messenger 插件需要调整右下角悬浮按钮的高度
+    const fb = document.getElementsByClassName('fb-customerchat')
+    if (fb.length === 0) {
+      floatButtonGroup?.current?.classList.replace('bottom-24', 'bottom-12')
+    } else {
+      floatButtonGroup?.current?.classList.replace('bottom-12', 'bottom-24')
+    }
+
+    document.addEventListener('scroll', scrollListener)
+    return () => document.removeEventListener('scroll', scrollListener)
+  }, [showRightFloat])
+
+  // 悬浮抽屉
+  const drawerRight = useRef(null)
+  const floatSlot = <div className='block lg:hidden'>
+    <TocDrawerButton onClick={() => {
+      drawerRight?.current?.handleSwitchVisible()
+    }} />
+ </div>
 
   return (
     <ThemeGlobalSimple.Provider value={{ searchModal }}>
