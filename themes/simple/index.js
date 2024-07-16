@@ -100,13 +100,6 @@ const LayoutBase = props => {
     return () => document.removeEventListener('scroll', scrollListener)
   }, [showRightFloat])
 
-  // 悬浮抽屉
-  const drawerRight = useRef(null)
-  const floatSlot = <div className='block lg:hidden'>
-    <TocDrawerButton onClick={() => {
-      drawerRight?.current?.handleSwitchVisible()
-    }} />
- </div>
 
   return (
     <ThemeGlobalSimple.Provider value={{ searchModal }}>
