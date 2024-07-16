@@ -30,7 +30,7 @@ export const MenuItemDrop = ({ link }) => {
 
       {hasSubMenu && (
         <>
-          <div className='cursor-pointer  menu-link pl-2 pr-4 text-gray-700 dark:text-gray-200 no-underline tracking-widest pb-1'>
+          <div className='cursor-pointer  menu-link pl-2 pr-4 text-gray-700 dark:text-gray-200 no-underline tracking-widest pb-1' style={{paddingRight:"8px"}}>
             {link?.icon && (
               <span className='mr-2'>
                 <i className={link.icon} />
