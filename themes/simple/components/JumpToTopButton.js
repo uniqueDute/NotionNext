@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
  * @returns {JSX.Element}
  * @constructor
  */
-const JumpToTopButton = () => {
+const JumpToTopButton = ({ showPercent = true, percent }) => {
   const { locale } = useGlobal()
   const [show, switchShow] = useState(false)
   const scrollListener = () => {
@@ -29,6 +29,7 @@ const JumpToTopButton = () => {
         className={(show ? ' opacity-100 ' : 'invisible  opacity-0') + ' transition-all duration-300 flex items-center justify-center cursor-pointer bg-black h-10 w-10 bg-opacity-40 rounded-sm'}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     ><i className='fas fa-angle-up text-white ' />
+    {showPercent && (<div className='text-xs dark:text-gray-200 block lg:hidden'>{percent}%</div>)}
     </div>
 }
 
