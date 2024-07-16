@@ -34,7 +34,7 @@ export default function ArticleInfo (props) {
                         {post?.tags && post?.tags?.length > 0 && post?.tags.map(t => <span style={{marginLeft:"0px"}} key={t}>/ <Link href={`/tag/${t}`}><span className=' hover:text-red-400 transition-all duration-200'>{t}</span></Link></span>)}
                     </div>)}
 
-                {post?.type !== 'Page' && (<div className='flex'>
+                {post?.type !== 'Page' && (<div className='flex flex-wrap'>
                     <img src={isDarkMode ? "/svg/fabu-night.svg" : "/svg/fabu.svg"} width='18' height='18' />
                     <span> 
                         发布:&nbsp;<Link
