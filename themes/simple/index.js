@@ -69,6 +69,7 @@ const LayoutBase = props => {
   const { children, slotTop } = props
   const { onLoading, fullWidth } = useGlobal()
   const searchModal = useRef(null)
+  const [percent] = useState(0) // 页面阅读百分比
 
   return (
     <ThemeGlobalSimple.Provider value={{ searchModal }}>
@@ -121,7 +122,7 @@ const LayoutBase = props => {
         </div>
 
         <div className='fixed right-4 bottom-4 z-20'>
-          <JumpToTopButton />
+          <JumpToTopButton percent={percent}/>
         </div>
 
         {/* 搜索框 */}
