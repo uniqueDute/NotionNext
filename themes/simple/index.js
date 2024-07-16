@@ -68,7 +68,9 @@ export const useSimpleGlobal = () => useContext(ThemeGlobalSimple)
 const LayoutBase = props => {
   const { children, slotTop } = props
   const { onLoading, fullWidth } = useGlobal()
+  const targetRef = useRef(null)
   const searchModal = useRef(null)
+  const floatButtonGroup = useRef(null)
   const [showRightFloat, switchShow] = useState(false)
   const [percent, changePercent] = useState(0)
 
