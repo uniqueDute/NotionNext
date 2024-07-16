@@ -70,7 +70,6 @@ const LayoutBase = props => {
   const { onLoading, fullWidth } = useGlobal()
   const targetRef = useRef(null)
   const searchModal = useRef(null)
-  const floatButtonGroup = useRef(null)
   const [showRightFloat, switchShow] = useState(false)
   const [percent, changePercent] = useState(0)
 
@@ -89,18 +88,6 @@ const LayoutBase = props => {
     changePercent(per)
   }
 
-  useEffect(() => {
-    // facebook messenger 插件需要调整右下角悬浮按钮的高度
-    const fb = document.getElementsByClassName('fb-customerchat')
-    if (fb.length === 0) {
-      floatButtonGroup?.current?.classList.replace('bottom-24', 'bottom-12')
-    } else {
-      floatButtonGroup?.current?.classList.replace('bottom-12', 'bottom-24')
-    }
-
-    document.addEventListener('scroll', scrollListener)
-    return () => document.removeEventListener('scroll', scrollListener)
-  }, [showRightFloat])
 
 
   return (
@@ -154,7 +141,7 @@ const LayoutBase = props => {
         </div>
 
         <div className='fixed right-4 bottom-4 z-20'>
-          <JumpToTopButton percent={percent}/>
+          <JumpToTopButton />
         </div>
 
         {/* 搜索框 */}
